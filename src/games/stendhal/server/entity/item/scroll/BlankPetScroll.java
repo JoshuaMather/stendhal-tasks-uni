@@ -60,29 +60,35 @@ public class BlankPetScroll extends Scroll {
 	@Override
 	protected boolean useScroll(final Player player) {
 		final StendhalRPZone zone = player.getZone();
-		final String petName = player.getPet().getName();
-
-		if (zone.isTeleportInAllowed(player.getX(), player.getY())) {
-			final Item summonPetScroll = SingletonRepository.getEntityManager().getItem(
-					"summon pet scroll");
-			summonPetScroll.setInfoString(petName);
-			player.equipOrPutOnGround(summonPetScroll);
-
-			final Pet pet = player.getPet();
-
-
-			if (pet != null) {
-				//petOwner.storePet(pet);
-				player.removePet(pet);
-				pet.getZone().remove(pet);
-				player.sendPrivateText("Amazingly your pet melds with the scroll. It just walked right into the page!");
+		if(player.hasPet()) {
+			final String petName = player.getPet().getName();
+	
+			if (zone.isTeleportInAllowed(player.getX(), player.getY())) {
+				final Item summonPetScroll = SingletonRepository.getEntityManager().getItem(
+						"summon pet scroll");
+				summonPetScroll.setInfoString(petName);
+				player.equipOrPutOnGround(summonPetScroll);
+	
+				final Pet pet = player.getPet();
+	
+	
+				if (pet != null) {
+					//petOwner.storePet(pet);
+					player.removePet(pet);
+					pet.getZone().remove(pet);
+					player.sendPrivateText("Amazingly your pet melds with the scroll. It just walked right into the page!");
+				}
+	
+				return true;
+			} else {
+				player.sendPrivateText("The strong anti magic aura in this area prevents the scroll from working!");
+				return false;
 			}
-
-			return true;
-		} else {
-			player.sendPrivateText("The strong anti magic aura in this area prevents the scroll from working!");
+		}else {
+			player.sendPrivateText("There is no pet to put in a scroll!");
 			return false;
 		}
+		
 	}
 
 }
