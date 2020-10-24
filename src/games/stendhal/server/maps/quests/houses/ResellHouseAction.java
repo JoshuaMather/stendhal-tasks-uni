@@ -3,6 +3,8 @@
  */
 package games.stendhal.server.maps.quests.houses;
 
+import java.util.Iterator;
+
 import org.apache.log4j.Logger;
 
 import games.stendhal.common.parser.Sentence;
@@ -12,6 +14,7 @@ import games.stendhal.server.entity.mapstuff.portal.HousePortal;
 import games.stendhal.server.entity.npc.ChatAction;
 import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.player.Player;
+import marauroa.common.game.RPSlot;
 
 final class ResellHouseAction implements ChatAction {
 
@@ -48,6 +51,12 @@ final class ResellHouseAction implements ChatAction {
 			final StackableItem money = (StackableItem) SingletonRepository.getEntityManager().getItem("money");
 			money.setQuantity(refund);
 			player.equipOrPutOnGround(money);
+			
+			// Loop through all the slots in the chest and clear them
+			Iterator<RPSlot> iter = HouseUtilities.findChest(portal).slotsIterator();
+			while(iter.hasNext()) {
+				iter.next().clear();
+			}
 
 			portal.changeLock();
 			portal.setOwner("");

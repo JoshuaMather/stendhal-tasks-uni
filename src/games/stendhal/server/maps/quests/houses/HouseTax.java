@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -36,6 +37,7 @@ import games.stendhal.server.entity.npc.ConversationStates;
 import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.npc.SpeakerNPC;
 import games.stendhal.server.entity.player.Player;
+import marauroa.common.game.RPSlot;
 import marauroa.server.db.DBTransaction;
 import marauroa.server.db.command.AbstractDBCommand;
 import marauroa.server.db.command.DBCommandQueue;
@@ -184,6 +186,13 @@ class HouseTax implements TurnListener {
 		notifyIfNeeded(portal.getOwner(), "You have neglected to pay your house taxes for too long. "
 					   + "Your house has been repossessed to cover the debt to the state.");
 		logger.info("repossessed " + portal.getDoorId() + ", which used to belong to " + portal.getOwner());
+		
+		// Loop through all the slots in the chest and clear them
+		Iterator<RPSlot> iter = HouseUtilities.findChest(portal).slotsIterator();
+		while(iter.hasNext()) {
+			iter.next().clear();
+		}
+		
 		portal.changeLock();
 		portal.setOwner("");
 	}
