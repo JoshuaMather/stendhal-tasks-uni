@@ -143,7 +143,11 @@ public class AmazonPrincessTest {
 		// -----------------------------------------------
 		final Item item = ItemTestHelper.createItem("pina colada");
 		player.getSlot("bag").add(item);
-
+		
+		// We get how much exp and karma the player had before getting the reward for the quest
+		int exp_before=player.getXP();
+		double karma_before=player.getKarma();
+		
 		en.step(player, "hi");
 		assertEquals("Huh, what are you doing here?", getReply(npc));
 		en.step(player, "pina colada");
@@ -151,7 +155,13 @@ public class AmazonPrincessTest {
 		assertTrue(player.isEquipped("fish pie"));
 		en.step(player, "bye");
 		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
-
+		
+		//We get how much exp and karma the player had after getting the reqard for the quest
+		int exp_after=player.getXP();
+		double karma_after=player.getKarma();
+		//We check if the player has obtained at least 500 exp
+		assertTrue("Princess did not give at least than 500 exp",(exp_after-500>=exp_before));
+		assertTrue("The princess gave karma when it was not supposed to",(karma_after-karma_before==0));
 		// -----------------------------------------------
 
 		en.step(player, "hi");
