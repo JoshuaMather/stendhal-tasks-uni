@@ -161,6 +161,7 @@ public class AmazonPrincessTest {
 		double karma_after=player.getKarma();
 		//We check if the player has obtained at least 500 exp
 		assertTrue("Princess did not give at least than 500 exp",(exp_after-500>=exp_before));
+		//We check if the player has obtained any karma, it should not have obtained any
 		assertTrue("The princess gave karma when it was not supposed to",(karma_after-karma_before==0));
 		// -----------------------------------------------
 
