@@ -17,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.entity.creature.Cat;
 import games.stendhal.server.entity.creature.Creature;
 import games.stendhal.server.entity.creature.Sheep;
@@ -51,16 +50,4 @@ public class GetBaseSpeed {
 		assertEquals(0.9, (new Cat()).getBaseSpeed(), 0.001);
 		assertEquals(0.25, (new Sheep()).getBaseSpeed(), 0.001);
 	}
-	
-	/** 
-	 * Test that dwarf speed (for under level 30 dwarfs) is correctly 0.8
-	 */
-	@Test
-	public void testDwarfSpeed() {
-		assertEquals(0.8, SingletonRepository.getEntityManager().getCreature("dwarf").getBaseSpeed(), 0.001);
-		assertEquals(0.8, SingletonRepository.getEntityManager().getCreature("dwarf guardian").getBaseSpeed(), 0.001);
-		assertEquals(0.8, SingletonRepository.getEntityManager().getCreature("elder dwarf").getBaseSpeed(), 0.001);
-		assertEquals(0.8, SingletonRepository.getEntityManager().getCreature("hero dwarf").getBaseSpeed(), 0.001);
-	}
-	
 }
