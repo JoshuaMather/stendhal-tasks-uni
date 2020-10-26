@@ -143,6 +143,92 @@ public class AmazonPrincessTest {
 		// -----------------------------------------------
 		final Item item = ItemTestHelper.createItem("pina colada");
 		player.getSlot("bag").add(item);
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "pina colada");
+		assertTrue(getReply(npc).startsWith("Thank you!! Take th"));
+		assertTrue(player.isEquipped("fish pie"));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+		
+		
+
+		// -----------------------------------------------
+
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "task");
+		assertTrue(getReply(npc).startsWith("I'm sure I'll be too drunk to have another for at least"));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+
+		// -----------------------------------------------
+
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "pina colada");
+		assertEquals("Sometime you could do me a #favour ...", getReply(npc));
+		en.step(player, "favour");
+		assertTrue(getReply(npc).startsWith("I'm sure I'll be too drunk to have another for at least "));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+	}
+
+	/**
+	 * Tests for quest with the new rewards.
+	 */
+	@Test
+	public void testQuestWithXPReward() {
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "help");
+		assertEquals("Beware of my sisters on the island, they do not like strangers.", getReply(npc));
+		en.step(player, "task");
+		assertEquals("I'm looking for a drink, should be an exotic one. Can you bring me one?", getReply(npc));
+		en.step(player, "yes");
+		assertEquals("Thank you! If you have found some, say #drink to me so I know you have it. I'll be sure to give you a nice reward.", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+	
+		// -----------------------------------------------
+	
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "task");
+		assertEquals("I like these exotic drinks, I forget the name of my favourite one.", getReply(npc));
+		en.step(player, "help");
+		assertEquals("Beware of my sisters on the island, they do not like strangers.", getReply(npc));
+		en.step(player, "pinacolada");
+		assertEquals("You don't have any drink I like yet. Go, and you better get an exotic one!", getReply(npc));
+		en.step(player, "exotic drink");
+		en.step(player, "pinacolad");
+		assertEquals("You don't have any drink I like yet. Go, and you better get an exotic one!", getReply(npc));
+		en.step(player, "help");
+		assertEquals("Beware of my sisters on the island, they do not like strangers.", getReply(npc));
+		en.step(player, "favor");
+		assertEquals("I like these exotic drinks, I forget the name of my favourite one.", getReply(npc));
+		en.step(player, "pinacolada");
+		assertEquals("You don't have any drink I like yet. Go, and you better get an exotic one!", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+	
+		// -----------------------------------------------
+	
+		en.step(player, "hi");
+		assertEquals("Huh, what are you doing here?", getReply(npc));
+		en.step(player, "help");
+		assertEquals("Beware of my sisters on the island, they do not like strangers.", getReply(npc));
+		en.step(player, "quest");
+		assertEquals("I like these exotic drinks, I forget the name of my favourite one.", getReply(npc));
+		en.step(player, "done");
+		en.step(player, "drink");
+		assertEquals("You don't have any drink I like yet. Go, and you better get an exotic one!", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
+	
+		// -----------------------------------------------
+		final Item item = ItemTestHelper.createItem("pina colada");
+		player.getSlot("bag").add(item);
 		
 		// We get how much exp and karma the player had before getting the reward for the quest
 		int exp_before=player.getXP();
@@ -164,16 +250,16 @@ public class AmazonPrincessTest {
 		//We check if the player has obtained any karma, it should not have obtained any
 		assertTrue("The princess gave karma when it was not supposed to",(karma_after-karma_before==0));
 		// -----------------------------------------------
-
+	
 		en.step(player, "hi");
 		assertEquals("Huh, what are you doing here?", getReply(npc));
 		en.step(player, "task");
 		assertTrue(getReply(npc).startsWith("I'm sure I'll be too drunk to have another for at least"));
 		en.step(player, "bye");
 		assertEquals("Goodbye, and beware of the barbarians.", getReply(npc));
-
+	
 		// -----------------------------------------------
-
+	
 		en.step(player, "hi");
 		assertEquals("Huh, what are you doing here?", getReply(npc));
 		en.step(player, "pina colada");
