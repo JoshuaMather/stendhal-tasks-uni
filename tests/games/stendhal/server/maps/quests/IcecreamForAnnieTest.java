@@ -13,6 +13,7 @@
 package games.stendhal.server.maps.quests;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
@@ -134,7 +135,10 @@ public class IcecreamForAnnieTest {
 		en = npc.getEngine();
 
 		en.step(player, "hi");
-		assertEquals("Hello, I see you've met my daughter Annie. I hope she wasn't too demanding. You seem like a nice person.", getReply(npc));
+		assertEquals("Hello again.", getReply(npc));
+		assertThat(player.getQuest(questSlot), not("mummy"));
+		en.step(player, "ice cream");
+		assertEquals("Did Annie ask for another?  I suppose it's okay, as long as she can still eat her tea.", getReply(npc));
 		assertThat(player.getQuest(questSlot), is("mummy"));
 		en.step(player, "task");
 		assertEquals("Nothing, thank you.", getReply(npc));

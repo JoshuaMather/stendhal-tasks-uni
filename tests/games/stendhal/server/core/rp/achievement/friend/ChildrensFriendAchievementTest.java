@@ -352,6 +352,7 @@ public class ChildrensFriendAchievementTest extends ZonePlayerAndNPCTestImpl {
 		en = mrsjones.getEngine();
 
 		en.step(player, "hi");
+		en.step(player, "ice cream");
 		en.step(player, "bye");
 
 		en = annie.getEngine();
