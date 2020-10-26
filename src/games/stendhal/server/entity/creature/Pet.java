@@ -279,7 +279,7 @@ public abstract class Pet extends DomesticAnimal {
 
 		//drinking logic
 		boolean busyWithHealing = false;
-		if (getHP() < getBaseHP()) {
+		if (getHP() < getBaseHP() && (getHP() < 100)) {
 			busyWithHealing = logicHealing();
 		}
 
