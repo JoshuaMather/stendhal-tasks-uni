@@ -49,7 +49,5 @@ public class GetBaseSpeed {
 				0.001);
 		assertEquals(0.9, (new Cat()).getBaseSpeed(), 0.001);
 		assertEquals(0.25, (new Sheep()).getBaseSpeed(), 0.001);
-
 	}
-
 }
