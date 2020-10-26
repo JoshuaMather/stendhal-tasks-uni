@@ -13,6 +13,7 @@
 package games.stendhal.server.maps.quests;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import games.stendhal.server.entity.npc.action.EquipItemAction;
 import games.stendhal.server.entity.npc.action.InflictStatusOnNPCAction;
 import games.stendhal.server.entity.npc.action.MultipleActions;
 import games.stendhal.server.entity.npc.action.SayTimeRemainingAction;
+import games.stendhal.server.entity.npc.action.SetQuestAction;
 import games.stendhal.server.entity.npc.action.SetQuestAndModifyKarmaAction;
 import games.stendhal.server.entity.npc.condition.AndCondition;
 import games.stendhal.server.entity.npc.condition.NotCondition;
@@ -41,6 +43,8 @@ import games.stendhal.server.entity.npc.condition.QuestStateStartsWithCondition;
 import games.stendhal.server.entity.npc.condition.TimePassedCondition;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.Region;
+
+import games.stendhal.server.entity.npc.action.IncreaseXPAction;
 
 /**
  * QUEST: The Amazon Princess
@@ -60,7 +64,7 @@ import games.stendhal.server.maps.Region;
  *
  * REWARD:
  * <ul>
- * <li>Karma +25 in all</li>
+ * <li>Experience +500 in all</li>
  * <li>Some fish pie, random between 2 and 7.</li>
  * </ul>
  *
@@ -152,8 +156,9 @@ npc.add(ConversationStates.ATTENDING,
 										Grammar.thisthese(pieAmount) + " " +
 										Grammar.quantityplnoun(pieAmount, "fish pie", "") +
 										" from my cook, and this kiss, from me.");
-								new SetQuestAndModifyKarmaAction(getSlotName(), "drinking;"
-																 + System.currentTimeMillis(), 15.0).fire(player, sentence, npc);
+								new SetQuestAction(getSlotName(), "drinking;"
+										 + System.currentTimeMillis()).fire(player, sentence, npc);
+								new IncreaseXPAction(500).fire(player, sentence, npc);
 							}
 						},
 						new InflictStatusOnNPCAction("pina colada")
