@@ -13,6 +13,7 @@
 package games.stendhal.server.maps.quests;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertEquals;
@@ -189,4 +190,80 @@ public class IcecreamForAnnieTest {
 		en.step(player, "bye");
 		assertEquals("Ta ta.", getReply(npc));
 	}
+	
+	@Test
+	public void testRepeatQuest() {
+		//Setting up and doing quest first time
+		npc = SingletonRepository.getNPCList().get("Annie Jones");
+		en = npc.getEngine();
+
+		en.step(player, "hi");
+		assertEquals("Hello, my name is Annie. I am five years old.", getReply(npc));
+		en.step(player, "task");
+		assertEquals("I'm hungry! I'd like an ice cream, please. Vanilla, with a chocolate flake. Will you get me one?", getReply(npc));
+		en.step(player, "ok");
+		assertEquals("Thank you!", getReply(npc));
+		assertThat(player.getQuest(questSlot), is("start"));
+		en.step(player, "bye");
+		assertEquals("Ta ta.", getReply(npc));
+		
+		Item item = ItemTestHelper.createItem("icecream", 1);
+		player.getSlot("bag").add(item);
+
+		en.step(player, "hi");
+		assertEquals("Mummy says I mustn't talk to you any more. You're a stranger.", getReply(npc));
+		
+		npc = SingletonRepository.getNPCList().get("Mrs Jones");
+		en = npc.getEngine();
+
+		en.step(player, "hi");
+		assertEquals("Hello, I see you've met my daughter Annie. I hope she wasn't too demanding. You seem like a nice person.", getReply(npc));
+		assertThat(player.getQuest(questSlot), is("mummy"));
+		
+		en.step(player, "bye");
+		assertEquals("Bye for now.", getReply(npc));
+
+		npc = SingletonRepository.getNPCList().get("Annie Jones");
+		en = npc.getEngine();
+		
+		en.step(player, "hi");
+		assertEquals("Yummy! Is that ice cream for me?", getReply(npc));
+		en.step(player, "yes");
+		assertEquals("Thank you EVER so much! You are very kind. Here, take this present.", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Ta ta.", getReply(npc));
+		
+		//Doing quest 2nd time
+		player.setQuest(questSlot, "eating;0");
+		en.step(player, "hi");
+		assertEquals("Hello.", getReply(npc));
+		en.step(player, "task");
+		assertEquals("I hope another ice cream wouldn't be greedy. Can you get me one?", getReply(npc));
+		en.step(player, "ok");
+		assertEquals("Thank you!", getReply(npc));
+		assertThat(player.getQuest(questSlot), is("start"));
+		en.step(player, "bye");
+		assertEquals("Ta ta.", getReply(npc));
+		
+		Item item2 = ItemTestHelper.createItem("icecream", 1);
+		player.getSlot("bag").add(item2);
+
+		en.step(player, "hi");
+		assertEquals("Mummy says I mustn't talk to you any more. You're a stranger.", getReply(npc));
+		
+		//KEY Test begins
+		npc = SingletonRepository.getNPCList().get("Mrs Jones");
+		en = npc.getEngine();
+		
+		en.step(player, "hi");
+		assertEquals("Hello again.", getReply(npc));
+		assertThat(player.getQuest(questSlot), not("mummy"));
+		en.step(player, "ice cream");
+		assertEquals("Did Annie ask for another?  I suppose it's okay, as long as she can still eat her tea.", getReply(npc));
+		assertThat(player.getQuest(questSlot), is("mummy"));
+		
+		en.step(player, "bye");
+		assertEquals("Bye for now.", getReply(npc));
+	}
+	
 }

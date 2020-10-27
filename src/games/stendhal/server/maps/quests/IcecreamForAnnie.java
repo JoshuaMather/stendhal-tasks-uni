@@ -267,13 +267,23 @@ public class IcecreamForAnnie extends AbstractQuest {
 					null);
 
 		// player is supposed to begetting ice cream
-		mummyNPC.add(ConversationStates.ATTENDING,
-					"ice cream",
+		mummyNPC.add(ConversationStates.IDLE,
+					ConversationPhrases.GREETING_MESSAGES,
 					new AndCondition(new GreetingMatchesNameCondition(mummyNPC.getName()),
-							new QuestInStateCondition(QUEST_SLOT, "start")),
+							new QuestInStateCondition(QUEST_SLOT, "start"),
+							new QuestNotInStateCondition("met_mrs_jones", "finished")),
 					ConversationStates.ATTENDING,
-					"Did Annie ask for another?  I suppose it's okay, as long as she can still eat her tea.",
-					new SetQuestAction(QUEST_SLOT, "mummy"));
+					"Hello, I see you've met my daughter Annie. I hope she wasn't too demanding. You seem like a nice person.",
+					new MultipleActions(new SetQuestAction(QUEST_SLOT, "mummy"),new SetQuestAction("met_mrs_jones", "finished")));
+		
+		//repeating
+		mummyNPC.add(ConversationStates.ATTENDING,
+				"ice cream",
+				new AndCondition(new GreetingMatchesNameCondition(mummyNPC.getName()),
+						new QuestInStateCondition(QUEST_SLOT, "start")),
+				ConversationStates.ATTENDING,
+				"Did Annie ask for another?  I suppose it's okay, as long as she can still eat her tea.",
+				new SetQuestAction(QUEST_SLOT, "mummy"));
 
 		// any other state
 		mummyNPC.add(ConversationStates.IDLE,
