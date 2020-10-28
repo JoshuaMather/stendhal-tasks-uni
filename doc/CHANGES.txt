@@ -25,6 +25,15 @@ Changelog
 - massive improvements to the database queue
 - support for recent versions of Java
 
+*fixes*
+  - Rebalanced AmazonianPrincess Quest
+  - Fixed pets drinking potions when they shouldn't
+  - Rebalanced dwarf speeds
+  - Fixed clearing chest on resell/confiscate house
+  - Fixed Deniran Chef job description typo
+  - Fixed blank pet scrolls disappearing
+  - Fixed annoying dialog in IceCreamQuest 
+
 *other*
 - started to work on a list of all contributors, please help to add to it:
   https://github.com/arianne/stendhal/blob/master/doc/contributors.md

@@ -167,6 +167,20 @@ Authors of Stendhal are:
   · Bugs fixer
   - Diligent Dodo (aka Soniccuz)
   · Artist (mimic, dodo, suba diving concepts)
+- Alexandru-Mihai Suciu
+  . Bug Fixer
+- Daniel King
+  . Bug Fixer
+- George Tarleton
+  . Bug Fixer
+- Alex Iordachescu
+  . Bug Fixer
+- Oliver Pryde
+  . Bug Fixer
+- Manav Gupta
+  . Bug Fixer
+- Joshua Mather
+  . Bug Fixer
 
 We also thank many who have contributed to Stendhal by providing patches,
 which the rest of the team commited on their behalf.
