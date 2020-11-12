@@ -121,8 +121,6 @@ public class FerryConveyerNPC implements ZoneConfigurator  {
 				ConversationStates.ATTENDING,
 				"You don't know what you're missing, landlubber!",
 				null);
-
-
 			}};
 
 			new AthorFerry.FerryListener() {
