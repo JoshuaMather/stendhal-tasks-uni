@@ -5,68 +5,81 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import games.stendhal.common.EquipActionConsts;
+import games.stendhal.server.actions.equip.EquipAction;
+import games.stendhal.server.actions.equip.EquipmentAction;
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
-import games.stendhal.server.core.rp.StendhalRPAction;
 import games.stendhal.server.entity.creature.Creature;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.entity.status.StatusType;
+import games.stendhal.server.maps.MockStendhalRPRuleProcessor;
 import games.stendhal.server.maps.MockStendlRPWorld;
+import marauroa.common.game.RPAction;
 import marauroa.server.game.db.DatabaseFactory;
 import utilities.PlayerTestHelper;
 
 public class SluggishWandTest {
 	private StendhalRPZone zone;
-	
+	private String playername = "player";
+	private Player player;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MockStendlRPWorld.get();
 		new DatabaseFactory().initializeDatabase();
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		PlayerTestHelper.removeAllPlayers();
-	}
-	
-	@Before
-	public void setUp() throws Exception {
-		zone = new StendhalRPZone("zone", 20, 20);
-		zone.protectionMap.init(1, 1);
-		MockStendlRPWorld.get().addRPZone(zone);
+		MockStendlRPWorld.get();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		MockStendlRPWorld.get().removeZone(zone);
-
+		MockStendhalRPRuleProcessor.get().clearPlayers();
 	}
+
+	@Before
+	public void setUp() throws Exception {
+		zone = new StendhalRPZone("the zone where the corpse shall be slain");
+		player = PlayerTestHelper.createPlayer(playername);
+		zone.add(player);
+	}
+
 	
 	@Test
 	public void shouldApplyHeavyStatusToCreatureOnAttack() {
 		
-		// Set up the fixture
-		final Player player = PlayerTestHelper.createPlayer("hyde");
-		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish_wand");
-		Creature victim = SingletonRepository.getEntityManager().getCreature("mouse");
 		
-		// Equip sluggish wand to player
-		player.equip("lhand", wand);
+		// Set up the fixture
+		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
+		Creature victim = SingletonRepository.getEntityManager().getCreature("mouse");
+		Item arrow = SingletonRepository.getEntityManager().getItem("wooden arrow");
 		
 		// Add target to zone
 		zone.add(victim);
+		
+		// Equip sluggish wand to player
+		player.equip("bag", wand);
+		player.equip("lhand", arrow);
+		final EquipmentAction action = new EquipAction();
+		RPAction equip = new RPAction();
+		equip.put("type", "equip");
+		equip.put(EquipActionConsts.BASE_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.BASE_SLOT, "bag");
+		equip.put(EquipActionConsts.BASE_ITEM, wand.getID().getObjectID());
+
+		equip.put(EquipActionConsts.TARGET_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.TARGET_SLOT, "rhand");
+
+		action.onAction(player, equip);
 		
 		// Check target doesn't already have HEAVY status
 		assertFalse(victim.hasStatus(StatusType.HEAVY));
 
 		// Get player to attack target
-		StendhalRPAction.startAttack(player, victim);
-		player.stopAttack();
+		player.setTarget(victim);
+		player.attack();
 		
 		// Check target now has HEAVY status after attack
 		assertTrue(victim.hasStatus(StatusType.HEAVY));
@@ -76,50 +89,123 @@ public class SluggishWandTest {
 	public void shouldReduceBaseSpeedOfCreatureOnAttack() {
 		
 		// Set up the fixture
-		final Player player = PlayerTestHelper.createPlayer("hyde");
-		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish_wand");
+		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
 		Creature victim = SingletonRepository.getEntityManager().getCreature("mouse");
-		
-		// Equip sluggish wand to player
-		player.equip("lhand", wand);
+		Item arrow = SingletonRepository.getEntityManager().getItem("wooden arrow");
 		
 		// Add target to zone
 		zone.add(victim);
+		
+		// Equip sluggish wand to player
+		player.equip("bag", wand);
+		player.equip("lhand", arrow);
+		final EquipmentAction action = new EquipAction();
+		RPAction equip = new RPAction();
+		equip.put("type", "equip");
+		equip.put(EquipActionConsts.BASE_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.BASE_SLOT, "bag");
+		equip.put(EquipActionConsts.BASE_ITEM, wand.getID().getObjectID());
+
+		equip.put(EquipActionConsts.TARGET_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.TARGET_SLOT, "rhand");
+
+		action.onAction(player, equip);
 		
 		// Get initial values
 		double initBaseSpeed = victim.getBaseSpeed();
 
 		// Get player to attack target
-		StendhalRPAction.startAttack(player, victim);
-		player.stopAttack();
+		player.setTarget(victim);
+		player.attack();
 		
 		// Check target is now slower than it was before attack
-		assertEquals(initBaseSpeed/2, victim.getBaseSpeed(), 0.001);
+		assertTrue(initBaseSpeed > victim.getBaseSpeed());
 	}
 	
 	@Test
 	public void shouldReduceBaseSpeedOfPlayerOnAttack() {
 		// Set up the fixture
-		final Player player = PlayerTestHelper.createPlayer("hyde");
 		final Player victim = PlayerTestHelper.createPlayer("bob");
-		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish_wand");
+		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
+		Item arrow = SingletonRepository.getEntityManager().getItem("wooden arrow");
+		
+		// Add target to zone
+		zone.add(victim);
 		
 		// Equip sluggish wand to player
-		player.equip("lhand", wand);
-		
-		// Add target and player to zone
-		zone.add(victim);
-		zone.add(player);
+		player.equip("bag", wand);
+		player.equip("lhand", arrow);
+		final EquipmentAction action = new EquipAction();
+		RPAction equip = new RPAction();
+		equip.put("type", "equip");
+		equip.put(EquipActionConsts.BASE_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.BASE_SLOT, "bag");
+		equip.put(EquipActionConsts.BASE_ITEM, wand.getID().getObjectID());
+
+		equip.put(EquipActionConsts.TARGET_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.TARGET_SLOT, "rhand");
+
+		action.onAction(player, equip);
 		
 		// Get initial values
 		double initBaseSpeed = victim.getBaseSpeed();
 
 		// Get player to attack target
-		StendhalRPAction.startAttack(player, victim);
-		player.stopAttack();
+		player.setTarget(victim);
+		player.attack();
 		
 		// Check target is now slower than it was before attack
-		assertEquals(initBaseSpeed/2, victim.getBaseSpeed(), 0.001);
+		assertTrue(initBaseSpeed > victim.getBaseSpeed());
+	}
+	
+	@Test
+	public void shouldNotSlowAfterUnequip() {
+		// Set up the fixture
+		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
+		Creature victim = SingletonRepository.getEntityManager().getCreature("mouse");
+		Item arrow = SingletonRepository.getEntityManager().getItem("wooden arrow");
+		
+		// Add target to zone
+		zone.add(victim);
+		
+		// Equip sluggish wand to player
+		player.equip("bag", wand);
+		player.equip("lhand", arrow);
+		final EquipmentAction action = new EquipAction();
+		RPAction equip = new RPAction();
+		equip.put("type", "equip");
+		equip.put(EquipActionConsts.BASE_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.BASE_SLOT, "bag");
+		equip.put(EquipActionConsts.BASE_ITEM, wand.getID().getObjectID());
+
+		equip.put(EquipActionConsts.TARGET_OBJECT, player.getID().getObjectID());
+		equip.put(EquipActionConsts.TARGET_SLOT, "rhand");
+		
+		action.onAction(player, equip);
+		
+		RPAction unequip = new RPAction();
+		unequip.put("type", "equip");
+		unequip.put(EquipActionConsts.BASE_OBJECT, player.getID().getObjectID());
+		unequip.put(EquipActionConsts.BASE_SLOT, "rhand");
+		unequip.put(EquipActionConsts.BASE_ITEM, wand.getID().getObjectID());
+
+		unequip.put(EquipActionConsts.TARGET_OBJECT, player.getID().getObjectID());
+		unequip.put(EquipActionConsts.TARGET_SLOT, "bag");
+		
+		action.onAction(player, unequip);
+		
+		
+		// Get initial values
+		double initBaseSpeed = victim.getBaseSpeed();
+
+		
+		// Get player to attack target
+		player.drop(wand);
+		player.setTarget(victim);
+		player.attack();
+		
+		// Check target is now slower than it was before attack
+		assertEquals(initBaseSpeed, victim.getBaseSpeed(), 0.001);
 	}
 
 }

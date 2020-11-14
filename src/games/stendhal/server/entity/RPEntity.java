@@ -3419,6 +3419,21 @@ System.out.printf("  drop: %2d %2d\n", attackerRoll, defenderRoll);
 		Builder<StatusAttacker> builder = ImmutableList.builder();
 		statusAttackers = builder.addAll(statusAttackers).add(statusAttacker).build();
 	}
+	
+	/**
+	 * Remove a status attacker from the entity
+	 * 
+	 * @param statusAttacker The StatusAttacker to be removed
+	 */
+	public void removeStatusAttacker(StatusAttacker statusAttacker) {
+		Builder<StatusAttacker> builder = ImmutableList.builder();
+		for (StatusAttacker sa : statusAttackers) {
+			if (!statusAttacker.equals(sa)) {
+				builder.add(sa);
+			}
+		}
+		statusAttackers = builder.build();
+	}
 
 	/**
 	 * gets the status list
