@@ -196,6 +196,23 @@
       <slot name="trade" />
     </equipable>
   </item>
--->
+--><item name="sluggish wand">
+		<type class="ranged" subclass="sluggish_wand" tileid="-1" />
+		<description>You see a wand. With this wand in your hand, you feel you have the power to slow things down.</description>
+		<implementation class-name="games.stendhal.server.entity.item.SluggishWand" />
+		<attributes>
+			<atk value="0" condition="!testing.combat"></atk>
+			<ratk condition="0" value="!testing.combat" />
+			<range value="3" /></attributes>
+		<weight value="1.0" />
+		<value value="20000" />
+		<equipable>
+			<slot name="ground"></slot>
+			<slot name="content" />
+			<slot name="lhand" />
+			<slot name="rhand" />
+			<slot name="bag" />
+			<slot name="trade" /></equipable>
+</item>
 
 </items>
