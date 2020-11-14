@@ -73,7 +73,7 @@ public class FlowerPotTest {
 		flowerpot.setInfoString("carrot");
 		flowerpot.onUsed(player);
 		VegetableGrower grower = (VegetableGrower) player.getZone().getEntityAt(1, 0);
-		assertEquals(grower.getDescription(), "You see an unripe carrot.");
+		assertEquals(grower.describe(), "It looks like there's a carrot sprouting here.");
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class FlowerPotTest {
 		flowerpot.onUsed(player);
 		VegetableGrower grower = (VegetableGrower) player.getZone().getEntityAt(1, 0);
 		grower.setToFullGrowth();
-		assertEquals(grower.getDescription(), "You see a carrot.");
+		assertEquals(grower.describe(), "You see a carrot.");
 	}
 	
 	/**
