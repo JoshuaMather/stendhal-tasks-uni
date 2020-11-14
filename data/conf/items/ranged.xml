@@ -208,7 +208,6 @@
 		<value value="20000" />
 		<equipable>
 			<slot name="ground"></slot>
-			<slot name="content" />
 			<slot name="lhand" />
 			<slot name="rhand" />
 			<slot name="bag" />
