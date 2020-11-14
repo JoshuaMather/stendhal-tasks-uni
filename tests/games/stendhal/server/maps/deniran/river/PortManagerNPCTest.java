@@ -1,6 +1,6 @@
-package games.stendhal.server.maps.ados.coast;
+package games.stendhal.server.maps.deniran.river;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static utilities.SpeakerNPCTestHelper.getReply;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import games.stendhal.server.entity.npc.fsm.Engine;
 import utilities.QuestHelper;
 import utilities.ZonePlayerAndNPCTestImpl;
 
-public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
+public class PortManagerNPCTest extends ZonePlayerAndNPCTestImpl {
 
 	private static final String ZONE_NAME = "test_zone";
 	
@@ -24,10 +24,10 @@ public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
 		setupZone(ZONE_NAME);
 	}
 	
-	public FerryConveyerNPCTest() {
-		setNpcNames("Eliza");
+	public PortManagerNPCTest() {
+		setNpcNames("Fiete");
 		setZoneForPlayer(ZONE_NAME);
-		addZoneConfigurator(new FerryConveyerNPC(), ZONE_NAME);
+		addZoneConfigurator(new PortManagerNPC(), ZONE_NAME);
 	}
 	
 	/**
@@ -36,36 +36,34 @@ public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
 	@Test
 	public void testHiAndJob() {
 				
-		final SpeakerNPC npc = getNPC("Eliza");
+		final SpeakerNPC npc = getNPC("Fiete");
 		final Engine en = npc.getEngine();
 		
 		en.step(player, "hi");
 		assertEquals(
-				"Welcome to the #ferry service to #Athor #island! How can I #help you?",
+				"Moin! How can I #help you?",
 				getReply(npc));
 		en.step(player, "job");
 		assertEquals(
-				"If passengers want to #board the #ferry to #Athor #island, I take them to the ship with this rowing boat.", 
+				"Me port manager. Busy job. Very important!", 
 				getReply(npc));
 	}
 	
 	@Test
-	public void testNotAllowedOnFerryToDeniranWithoutTicket() {
-		final SpeakerNPC npc = getNPC("Eliza");
+	public void testNotAllowedOnFerryToAdosWithoutTicket() {
+		final SpeakerNPC npc = getNPC("Fiete");
 		final Engine en = npc.getEngine();
 		
 		en.step(player, "hi");
-		en.step(player, "deniran");
+		en.step(player, "ados");
 		assertEquals(
-				"You must have a ticket to travel to Deniran.",
+				"You must have ticket to travel to Ados.",
 				getReply(npc));
-		
-		
 	}
 	
 	@Test
 	public void testAllowedOnFerryToDeniranWithTicket() {
-		final SpeakerNPC npc = getNPC("Eliza");
+		final SpeakerNPC npc = getNPC("Fiete");
 		final Engine en = npc.getEngine();
 		
 		en.step(player, "hi");
@@ -73,29 +71,31 @@ public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
 		FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
 		player.equip("bag", fastFerryTicket);
 		
-		en.step(player, "deniran");
+		en.step(player, "ados");
 		assertEquals(
 				"Thank you! Enjoy your trip!", getReply(npc));
 	}
 	
 	@Test
-	public void testSuccessfulTravelToDeniran() {
-		final SpeakerNPC npc = getNPC("Eliza");
+	public void testSuccessfulTravelToAdos() {
+		final SpeakerNPC npc = getNPC("Fiete");
 		final Engine en = npc.getEngine();
 		
 		en.step(player, "hi");
 		
 		FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
 		player.equip("bag", fastFerryTicket);
-			
-		en.step(player, "deniran");
+		
+		en.step(player, "ados");
 
-		int destX = 101;
+		int destX = 99;
 		int destY = 48;
-		String destZone = "0_deniran_river_s";
+		String destZone = "0_ados_coast_s_w2";
 		
 		assertEquals(player.getX(), destX);
 		assertEquals(player.getY(), destY);
 		assertEquals(player.getZone(), destZone);
 	}
+
+
 }
