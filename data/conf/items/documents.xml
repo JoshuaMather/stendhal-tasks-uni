@@ -195,5 +195,24 @@
       <slot name="rhand"/>
     </equipable>
   </item>-->
+  
+    <item name="fast ferry ticket">
+    <type class="documents" subclass="fast_ferry_ticket" tileid="-1"/>
+    <description>You see a ticket for the fast ferry between Ados and Deniran.</description>
+    <implementation class-name="games.stendhal.server.entity.item.FastFerryTicket"/>
+    <attributes>
+       <quantity value="1"/>
+    </attributes>
+    <weight value="0.01"/>
+    <value value="100"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+      <slot name="lhand"/>
+      <slot name="rhand"/>
+    </equipable>
+  </item>
 
 </items>

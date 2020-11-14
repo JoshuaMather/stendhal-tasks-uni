@@ -70,7 +70,8 @@ public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
 		
 		en.step(player, "hi");
 		
-		FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
+		//FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
+		FastFerryTicket fastFerryTicket = new FastFerryTicket(new HashMap<String, String>());
 		player.equip("bag", fastFerryTicket);
 		
 		en.step(player, "deniran");
@@ -85,7 +86,8 @@ public class FerryConveyerNPCTest extends ZonePlayerAndNPCTestImpl {
 		
 		en.step(player, "hi");
 		
-		FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
+		//FastFerryTicket fastFerryTicket = new FastFerryTicket("fast ferry ticket", "", "", new HashMap<String, String>());
+		FastFerryTicket fastFerryTicket = new FastFerryTicket(new HashMap<String, String>());
 		player.equip("bag", fastFerryTicket);
 			
 		en.step(player, "deniran");
