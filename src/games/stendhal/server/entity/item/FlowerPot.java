@@ -28,9 +28,9 @@ public class FlowerPot extends StackableItem{
 			VegetableGrower vegetableGrower;
 			// choose the default flower grower if there is none set
 			if (infostring == null) {
-				vegetableGrower = new VegetableGrower("carrot");
+				vegetableGrower = new VegetableGrower("carrot",3);
 			} else {
-				vegetableGrower = new VegetableGrower(this.getInfoString());
+				vegetableGrower = new VegetableGrower(this.getInfoString(),3);
 			}
 			user.getZone().add(vegetableGrower);
 			// add the VegetableGrower where the pot was on the ground
@@ -45,6 +45,8 @@ public class FlowerPot extends StackableItem{
 		user.sendPrivateText("You have to put the " + this.getName() + " on the ground to grow something in it, silly!");
 		return false;
 	}
+	
+	
 
 
 }

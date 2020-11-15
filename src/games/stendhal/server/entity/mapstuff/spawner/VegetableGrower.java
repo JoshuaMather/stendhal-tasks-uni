@@ -100,6 +100,9 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 		case 1:
 			text = "You see " + Grammar.a_noun(vegetableName) + ".";
 			break;
+		case 3:text = "You see " + Grammar.a_noun(vegetableName) + ".";
+			break;
+			
 		default:
 			text = "You see an unripe " +  Grammar.fullForm(vegetableName) + ".";
 			break;
@@ -136,6 +139,20 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 			((Player) entity).sendPrivateText("You are too far away.");
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * Create a new VegetableGrower for an item.
+	 *
+	 * @param name item name
+	 * @param max
+	 */
+	public VegetableGrower(final String name,final int maxRipeness) {
+		super("items/grower/" + name + "_grower", "items/grower/" + name + " grower", "Pick", maxRipeness, 1, 1);
+		vegetableName = name;
+		setDescription("It looks like there's "
+				+ Grammar.a_noun(name) + " sprouting here.");
 	}
 
 }
