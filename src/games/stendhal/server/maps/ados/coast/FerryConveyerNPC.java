@@ -98,6 +98,25 @@ public class FerryConveyerNPC implements ZoneConfigurator  {
 						}
 					}
 				});
+		
+		add(ConversationStates.ATTENDING,
+				"deniran",
+				null,
+				ConversationStates.ATTENDING,
+				null,
+				new ChatAction() {
+					@Override
+					public void fire(final Player player, final Sentence sentence, final EventRaiser npc) {
+						if (player.isEquipped("fast ferry ticket")) {
+							npc.say("Thank you! Enjoy your trip!");
+							
+							player.teleport("0_deniran_river_s", 99, 48, Direction.DOWN, null);
+
+						} else {
+							npc.say("You must have a ticket to travel to Deniran.");
+						}
+					}
+				});
 
 		add(ConversationStates.SERVICE_OFFERED,
 				ConversationPhrases.YES_MESSAGES,
