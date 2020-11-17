@@ -46,9 +46,11 @@ public class SluggishWandTest {
 		zone.add(player);
 	}
 
-	
+	/**
+	 * Tests if the heavy status is applied to a creature when attacked by the wand
+	 */
 	@Test
-	public void shouldApplyHeavyStatusToCreatureOnAttack() {
+	public void testForShouldApplyHeavyStatusToCreatureOnAttack() {
 		
 		
 		// Set up the fixture
@@ -85,8 +87,11 @@ public class SluggishWandTest {
 		assertTrue(victim.hasStatus(StatusType.HEAVY));
 	}
 	
+	/**
+	 * Tests if the speed of the creature is reduced when attacked by the wand
+	 */
 	@Test
-	public void shouldReduceBaseSpeedOfCreatureOnAttack() {
+	public void testForShouldReduceBaseSpeedOfCreatureOnAttack() {
 		
 		// Set up the fixture
 		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
@@ -122,8 +127,11 @@ public class SluggishWandTest {
 		assertTrue(initBaseSpeed > victim.getBaseSpeed());
 	}
 	
+	/**
+	 * Tests if the speed of another player is reduced when attacked by the wand
+	 */
 	@Test
-	public void shouldReduceBaseSpeedOfPlayerOnAttack() {
+	public void testForShouldReduceBaseSpeedOfPlayerOnAttack() {
 		// Set up the fixture
 		final Player victim = PlayerTestHelper.createPlayer("bob");
 		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
@@ -158,8 +166,11 @@ public class SluggishWandTest {
 		assertTrue(initBaseSpeed > victim.getBaseSpeed());
 	}
 	
+	/**
+	 * Tests that after unequipping the wand, an attack should not add the status effect
+	 */
 	@Test
-	public void shouldNotSlowAfterUnequip() {
+	public void testForShouldNotSlowAfterUnequip() {
 		// Set up the fixture
 		final Item wand = SingletonRepository.getEntityManager().getItem("sluggish wand");
 		Creature victim = SingletonRepository.getEntityManager().getCreature("mouse");
