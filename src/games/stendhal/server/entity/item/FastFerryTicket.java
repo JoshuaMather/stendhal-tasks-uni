@@ -3,15 +3,21 @@ package games.stendhal.server.entity.item;
 import java.util.Map;
 
 public class FastFerryTicket extends StackableItem {
-
-//	public FastFerryTicket(String name, String clazz, String subclass, Map<String, String> attributes) {
-//		super(name, clazz, subclass, attributes);
-//		// TODO Auto-generated constructor stub
-//	}
+	
+	/**
+	 * Creates a new fast ferry ticket with specified attributes
+	 *
+	 * @param attributes
+	 */
 	public FastFerryTicket(final Map<String, String> attributes) {
 		super("fast ferry ticket", "documents", "fast_ferry_ticket", attributes);
 	}
 
+	/**
+	 * Creates a specified amount fast ferry ticket
+	 *
+	 * @param quantity
+	 */
 	public FastFerryTicket(final int quantity) {
 		super("fast ferry ticket", "documents", "fast_ferry_ticket", null);
 		setQuantity(quantity);
