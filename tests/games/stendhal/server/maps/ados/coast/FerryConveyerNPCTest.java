@@ -70,14 +70,13 @@ public class FerryConveyerNPCTest {
 		
 		
 	}
-	Player player = PlayerTestHelper.createPlayer("player");
+	
 	@Test
 	public void testAllowedOnFerryToDeniranWithTicket() {
 		Player player = PlayerTestHelper.createPlayer("player");
 		
 		en.step(player, "hi");
 		SpeakerNPC npc1 = SingletonRepository.getNPCList().get("Fiete");
-		System.out.println(npc1.getY());
 		
 		FastFerryTicket fastFerryTicket = new FastFerryTicket(new HashMap<String, String>());
 		player.equip("bag", fastFerryTicket);

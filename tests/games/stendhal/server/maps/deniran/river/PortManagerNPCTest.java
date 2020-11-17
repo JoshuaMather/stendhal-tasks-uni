@@ -25,7 +25,7 @@ public class PortManagerNPCTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-        MockStendlRPWorld.get();
+		MockStendlRPWorld.get();
 		
 		final StendhalRPZone adoscoast = new StendhalRPZone("0_ados_coast_s_w2",100,100);
 		SingletonRepository.getRPWorld().addRPZone(adoscoast);
