@@ -1,10 +1,10 @@
 package games.stendhal.server.entity.mapstuff.spawner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-//import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -132,6 +132,6 @@ public class FlowerPotTest {
 		flowerpot.onUsed(player);
 		VegetableGrower grower = (VegetableGrower) player.getZone().getEntityAt(1, 0);
 		grower.onUsed(player);
-		assertTrue(!(player.isEquipped("carrot")));
+		assertFalse(player.isEquipped("carrot"));
 	}
 }	

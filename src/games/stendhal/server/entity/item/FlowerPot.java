@@ -23,7 +23,7 @@ public class FlowerPot extends StackableItem{
 				return false;
 			}
 
-			// the infostring of the seed stores what it should grow
+			// the infostring of the flower pot stores what it should grow
 			final String infostring = this.getInfoString();
 			VegetableGrower vegetableGrower;
 			// choose the default flower grower if there is none set
@@ -37,7 +37,7 @@ public class FlowerPot extends StackableItem{
 			vegetableGrower.setPosition(this.getX(), this.getY());
 			// The first stage of growth happens almost immediately
 			TurnNotifier.get().notifyInTurns(3, vegetableGrower);
-			// remove the seed now that it is planted
+			// remove the flower pot now that the plant begun to grow
 			this.removeOne();
 			return true;
 		}

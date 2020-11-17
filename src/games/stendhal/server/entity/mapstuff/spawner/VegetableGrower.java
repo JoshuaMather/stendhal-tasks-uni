@@ -93,20 +93,30 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 	@Override
 	public String describe() {
 		String text;
-		switch (getRipeness()) {
-		case 0:
-			text = getDescription();
-			break;
-		case 1:
+		
+		if(getRipeness()==getMaxRipeness())
 			text = "You see " + Grammar.a_noun(vegetableName) + ".";
-			break;
-		case 3:text = "You see " + Grammar.a_noun(vegetableName) + ".";
-			break;
-			
-		default:
+		else
+			if(getRipeness()!=0)
 			text = "You see an unripe " +  Grammar.fullForm(vegetableName) + ".";
-			break;
-		}
+			else
+				text = getDescription();
+		
+//		switch (getRipeness()) {
+//		case 0:
+//			text = getDescription();
+//			break;
+//		case 1:
+//			text = "You see " + Grammar.a_noun(vegetableName) + ".";
+//			break;
+//		case 3:
+//			text = "You see " + Grammar.a_noun(vegetableName) + ".";
+//			break;
+//			
+//		default:
+//			text = "You see an unripe " +  Grammar.fullForm(vegetableName) + ".";
+//			break;
+//		}
 		return text;
 	}
 
