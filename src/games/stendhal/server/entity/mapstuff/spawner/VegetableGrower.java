@@ -102,21 +102,7 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 			else
 				text = getDescription();
 		
-//		switch (getRipeness()) {
-//		case 0:
-//			text = getDescription();
-//			break;
-//		case 1:
-//			text = "You see " + Grammar.a_noun(vegetableName) + ".";
-//			break;
-//		case 3:
-//			text = "You see " + Grammar.a_noun(vegetableName) + ".";
-//			break;
-//			
-//		default:
-//			text = "You see an unripe " +  Grammar.fullForm(vegetableName) + ".";
-//			break;
-//		}
+
 		return text;
 	}
 
