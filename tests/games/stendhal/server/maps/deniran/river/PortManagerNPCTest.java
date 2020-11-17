@@ -1,10 +1,11 @@
 package games.stendhal.server.maps.deniran.river;
-
-import static org.junit.Assert.*;
+	
+import static org.junit.Assert.assertEquals;
 import static utilities.SpeakerNPCTestHelper.getReply;
 
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,6 +23,7 @@ public class PortManagerNPCTest {
 
 	private static SpeakerNPC npc = null;
 	private static Engine en = null;
+	private Player player;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -39,15 +41,18 @@ public class PortManagerNPCTest {
 		en = npc.getEngine();
 	}
 	
+	@Before
+	public void setUp() {
+		player = PlayerTestHelper.createPlayer("player");		
+	}
+	
 	
 	/**
-	 * Test for 'hi' and 'job'
+	 * Test the interaction when player speaks to the NPC saying 'hi' and 'job', in this order
 	 */
 	@Test
 	public void testHiAndJob() {
 				
-		Player player = PlayerTestHelper.createPlayer("player");
-		
 		en.step(player, "hi");
 		assertEquals(
 				"Moin! How can I #help you?",

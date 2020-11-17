@@ -6,6 +6,7 @@ import static utilities.SpeakerNPCTestHelper.getReply;
 
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,6 +24,7 @@ public class FerryConveyerNPCTest {
 
 	private static SpeakerNPC npc = null;
 	private static Engine en = null;
+	private Player player;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -40,13 +42,18 @@ public class FerryConveyerNPCTest {
 		en = npc.getEngine();
 	}
 	
+	@Before
+	public void setUpPlayer() {
+		player = PlayerTestHelper.createPlayer("player");
+	}
+	
 	/**
-	 * Test for 'hi' and 'job'
+	 * Test the interaction when player speaks to the NPC saying 'hi' and 'job', in this order
 	 */
 	@Test
 	public void testHiAndJob() {
 				
-		Player player = PlayerTestHelper.createPlayer("player");
+//		Player player = PlayerTestHelper.createPlayer("player");
 		
 		en.step(player, "hi");
 		assertEquals(
@@ -60,7 +67,7 @@ public class FerryConveyerNPCTest {
 	
 	@Test
 	public void testNotAllowedOnFerryToDeniranWithoutTicket() {
-		Player player = PlayerTestHelper.createPlayer("player");
+//		Player player = PlayerTestHelper.createPlayer("player");
 		en.step(player, "hi");
 		en.step(player, "deniran");
 		assertFalse(player.isEquipped("fast ferry ticket"));
@@ -73,7 +80,7 @@ public class FerryConveyerNPCTest {
 	
 	@Test
 	public void testAllowedOnFerryToDeniranWithTicket() {
-		Player player = PlayerTestHelper.createPlayer("player");
+//		Player player = PlayerTestHelper.createPlayer("player");
 		
 		en.step(player, "hi");
 		SpeakerNPC npc1 = SingletonRepository.getNPCList().get("Fiete");
