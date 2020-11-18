@@ -93,17 +93,16 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 	@Override
 	public String describe() {
 		String text;
-		switch (getRipeness()) {
-		case 0:
-			text = getDescription();
-			break;
-		case 1:
+		
+		if(getRipeness()==getMaxRipeness())
 			text = "You see " + Grammar.a_noun(vegetableName) + ".";
-			break;
-		default:
+		else
+			if(getRipeness()!=0)
 			text = "You see an unripe " +  Grammar.fullForm(vegetableName) + ".";
-			break;
-		}
+			else
+				text = getDescription();
+		
+
 		return text;
 	}
 
@@ -136,6 +135,20 @@ public class VegetableGrower extends GrowingPassiveEntityRespawnPoint implements
 			((Player) entity).sendPrivateText("You are too far away.");
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * Create a new VegetableGrower for an item.
+	 *
+	 * @param name item name
+	 * @param max
+	 */
+	public VegetableGrower(final String name,final int maxRipeness) {
+		super("items/grower/" + name + "_grower", "items/grower/" + name + " grower", "Pick", maxRipeness, 1, 1);
+		vegetableName = name;
+		setDescription("It looks like there's "
+				+ Grammar.a_noun(name) + " sprouting here.");
 	}
 
 }

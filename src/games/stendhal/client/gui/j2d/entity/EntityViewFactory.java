@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import games.stendhal.client.Triple;
 import games.stendhal.client.entity.IEntity;
+
 import games.stendhal.client.gui.wt.core.WtWindowManager;
 
 /*
@@ -190,6 +191,7 @@ public class EntityViewFactory {
 
 		register("item", "club", "wizard_staff", UseableItem2DView.class);
 		register("item", "misc", "seed", UseableItem2DView.class);
+		register("item", "container", "flowerpot", UseableItem2DView.class);
 		register("item", "misc", "bulb", UseableItem2DView.class);
 
 		register("item", "scroll", null, UseableItem2DView.class);
