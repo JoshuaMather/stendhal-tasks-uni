@@ -169,18 +169,26 @@ Authors of Stendhal are:
   · Artist (mimic, dodo, suba diving concepts)
 - Alexandru-Mihai Suciu
   . Bug Fixer
+  . Artist( item: flower pot)
+  . Coder
 - Daniel King
   . Bug Fixer
+  . Coder
 - George Tarleton
   . Bug Fixer
+  . Coder
 - Alex Iordachescu
   . Bug Fixer
+  . Coder
 - Oliver Pryde
   . Bug Fixer
+  . Coder
 - Manav Gupta
   . Bug Fixer
+  . Coder
 - Joshua Mather
   . Bug Fixer
+  . Coder
 
 We also thank many who have contributed to Stendhal by providing patches,
 which the rest of the team commited on their behalf.
