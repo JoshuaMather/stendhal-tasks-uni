@@ -32,9 +32,6 @@ public class GMHelpActionTest {
 		new MockStendhalClient() {
 			@Override
 			public void send(final RPAction action) {
-//				assertEquals(INSPECTQUEST, action.get("type"));
-//				assertEquals("schnick", action.get("target"));
-//				assertEquals("1", action.get("quest_slot"));
 			}
 		};
 		MockClientUI ui = new MockClientUI();
