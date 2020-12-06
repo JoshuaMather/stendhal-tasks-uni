@@ -62,6 +62,7 @@ public class SlashActionRepositoryTest {
 		assertThat(SlashActionRepository.get("tell").toString(), containsString("MessageAction"));
 		assertThat(SlashActionRepository.get("where").toString(), containsString("WhereAction"));
 		assertThat(SlashActionRepository.get("who").toString(), containsString("WhoAction"));
+		
 	}
 
 }

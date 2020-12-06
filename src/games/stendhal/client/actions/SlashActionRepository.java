@@ -39,7 +39,17 @@ public class SlashActionRepository {
 		final SlashAction who = new WhoAction();
 		final SlashAction help = new HelpAction();
 		final GroupMessageAction groupMessage = new GroupMessageAction();
-
+		
+		DefaultActionManager manager=new DefaultActionManager();
+		
+		HashMap<String, DefaultAction> map=manager.getActions();
+		
+		for(String name: map.keySet())
+			{
+				actions.put(name, new XMLAction(name,map.get(name)));
+			}
+		
+		
 		actions.put("/", new RemessageAction());
 		actions.put("add", new AddBuddyAction());
 		actions.put("adminlevel", new AdminLevelAction());
