@@ -13,11 +13,16 @@
 	
 	<complexType name="actionType">
 		<sequence>
+			<element name="type" type="Q1:type"></element>
 			<element name="min_params" type="Q1:min_params"></element>
 			<element name="max_params" type="Q1:max_params"></element>
 			<element name="implementation" type="Q1:implementation"></element>
 			<element name="attributes" type="Q1:attributes"></element>
 		</sequence>
+		<attribute name="name" type="string" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="type">
 		<attribute name="value" type="string" use="required"></attribute>
 	</complexType>
 	
