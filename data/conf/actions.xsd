@@ -1,3 +1,76 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/actions" xmlns:tns="http://www.example.org/actions" elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="stendhal"
+	xmlns:tns="http://www.example.org/zones" elementFormDefault="qualified"
+	xmlns:Q1="stendhal">
+	
+		<element name="actions" type="Q1:actionGroup"></element>
+
+	<complexType name="actionGroup">
+		<sequence>
+			<element name="action" type="Q1:actionType" minOccurs="0"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="actionType">
+		<sequence>
+			<element name="min_params" type="Q1:min_params"></element>
+			<element name="max_params" type="Q1:max_params"></element>
+			<element name="implementation" type="Q1:implementation"></element>
+			<element name="attributes" type="Q1:attributes"></element>
+		</sequence>
+		<attribute name="value" type="string" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="min_params">
+		<attribute name="value" type="integer" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="max_params">
+		<attribute name="value" type="integer" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="implementation">
+		<attribute name="class-name" type="string"></attribute>
+	</complexType>
+	
+	<complexType name="attributes">
+		<sequence>
+			<element name="action" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="target" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="text" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="stat" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="mode" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="value" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="quest_slot" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="zone" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="x" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="y" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="minutes" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="hours" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="reason" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="name" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+			<element name="message" type="Q1:attribute" minOccurs="0" maxOccurs="1"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="attribute">
+		<sequence>
+			<element name="string" type="Q1:string" minOccurs="0" maxOccurs="1"></element>
+			<element name="param" type="Q1:param" minOccurs="0" maxOccurs="1"></element>
+			<element name="remainder" type="Q1:remainder" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="string">
+		<attribute name="value" type="string" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="param">
+		<attribute name="value" type="integer" use="required"></attribute>
+	</complexType>
+	
+	<complexType name="remainder">
+		<attribute name="value" type="integer" use="required"></attribute>
+	</complexType>
+	
 </schema>
