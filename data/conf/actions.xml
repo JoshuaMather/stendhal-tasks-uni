@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal groups.xsd ">
+	<group uri="actions/admin.xml"/>
+	<group uri="actions/attack.xml"></group>
+	<group uri="actions/buddy.xml"/>
+	<group uri="actions/chat.xml"/>
+	<group uri="actions/equip.xml"/>
+	<group uri="actions/move.xml"/>
+	<group uri="actions/pet.xml"/>
+	<group uri="actions/query.xml"/>
+	<group uri="actions/spell.xml"/>
+	<group uri="actions/validator.xml"/>
+	<group uri="actions/client.xml"/>
+</groups>
