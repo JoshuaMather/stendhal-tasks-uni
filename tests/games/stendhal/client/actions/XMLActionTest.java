@@ -1,6 +1,7 @@
 package games.stendhal.client.actions;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +25,8 @@ public class XMLActionTest {
 	@Before
 	public  void setUpBefore() throws Exception {
 	map=new HashMap<String,Map<String,String>>();
-	action.setMap(new HashMap<String,Map<String,String>>());
 	action=new XMLAction();
+	action.setMap(new HashMap<String,Map<String,String>>());
 	}
 
 	@After
@@ -34,7 +35,7 @@ public class XMLActionTest {
 	}
 
 	/**
-	 * Tests for execute.
+	 * Tests for execute.import static org.hamcrest.CoreMatchers.is;
 	 */
 	@Test
 	public void testExecuteAddBuddy() {
@@ -74,6 +75,31 @@ public class XMLActionTest {
 	}
 	
 	@Test
+	public void testExecuteEmote() {
+		
+
+		action.setName("emote");
+		Map<String,String> pair=new HashMap<String,String>();
+		pair.put("remainder","-1");		
+		map.put("text",pair);
+		System.out.println(map);
+		//pair.clear();
+		
+		action.setMap(map);
+		
+		new MockStendhalClient() {
+			@Override
+			public void send(final RPAction action) {
+//				for (final String attrib : action) {
+					assertEquals("emote", action.get("type"));
+					assertEquals("<3", action.get("text"));
+//				}
+			}
+		};
+		assertTrue(action.execute(null,"<3"));
+	}
+	
+	@Test
 	public void testExecuteAlter() {
 		
 
@@ -81,16 +107,15 @@ public class XMLActionTest {
 		Map<String,String> pair=new HashMap<String,String>();
 		pair.put("param","0");		
 		map.put("target",pair);
-		pair.clear();
-		pair.put("param","1");		
-		map.put("stat",pair);
-		pair.clear();
-		pair.put("param","2");		
-		map.put("mode",pair);
-		pair.clear();
-		pair.put("remainder","-1");		
-		map.put("value",pair);
-		pair.clear();
+		Map<String,String> pair2=new HashMap<String,String>();
+		pair2.put("param","1");		
+		map.put("stat",pair2);
+		Map<String,String> pair3=new HashMap<String,String>();
+		pair3.put("param","2");		
+		map.put("mode",pair3);
+		Map<String,String> pair4=new HashMap<String,String>();
+		pair4.put("remainder","-1");		
+		map.put("value",pair4);
 		
 		action.setMap(map);
 		
@@ -104,15 +129,39 @@ public class XMLActionTest {
 				assertEquals("blabla", action.get("value"));
 			}
 		};
-		final AlterAction action = new AlterAction();
-		assertFalse(action.execute(null, null));
-		assertFalse(action.execute(new String[] { "schnick" }, null));
-		assertFalse(action.execute(new String[] { "schnick", "schnick" }, null));
-		assertFalse(action.execute(new String[] { "schnick", "schnick", "schnick" }, null));
 
 		assertTrue(action.execute(new String[] { "schnick", "schnack", "schnuck" }, "blabla"));
 	}
+	
+	@Test
+	public void getMinimumParametersWho() {
+		action.setName("who");
+		action.setMinParams(0);
 
+		assertThat(action.getMinimumParameters(), is(0));
+	}
+	
+	@Test
+	public void getMaximumParametersWho() {
+		action.setName("who");
+		action.setMinParams(0);
+		
+		assertThat(action.getMaximumParameters(), is(0));
+	}
 
+	@Test
+	public void getMinimumParametersAlter() {
+		action.setName("alter");
+		action.setMinParams(3);
+		
+		assertThat(action.getMinimumParameters(), is(3));	}
+	
+	
+	@Test
+	public void getMaximumParametersAlter() {
+		action.setName("alter");
+		action.setMaxParams(3);
+
+		assertThat(action.getMaximumParameters(), is(3));	}
 
 }

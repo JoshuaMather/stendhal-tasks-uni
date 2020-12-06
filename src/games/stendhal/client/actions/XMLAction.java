@@ -13,31 +13,80 @@ public class XMLAction implements SlashAction {
 	private String name;
 	private DefaultAction action;
 	private Map<String,Map<String,String>> map;
+	private int maxParams;
+	private int minParams;
 	
+	
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return the action
+	 */
 	public DefaultAction getAction() {
 		return action;
 	}
 
+	/**
+	 * @param action the action to set
+	 */
 	public void setAction(DefaultAction action) {
 		this.action = action;
 	}
 
+	/**
+	 * @return the map
+	 */
 	public Map<String, Map<String, String>> getMap() {
 		return map;
 	}
 
-
+	/**
+	 * @param map the map to set
+	 */
 	public void setMap(Map<String, Map<String, String>> map) {
 		this.map = map;
 	}
+
+	/**
+	 * @return the maxParams
+	 */
+	public int getMaxParams() {
+		return maxParams;
+	}
+
+	/**
+	 * @param maxParams the maxParams to set
+	 */
+	public void setMaxParams(int maxParams) {
+		this.maxParams = maxParams;
+	}
+
+	/**
+	 * @return the minParams
+	 */
+	public int getMinParams() {
+		return minParams;
+	}
+
+	/**
+	 * @param minParams the minParams to set
+	 */
+	public void setMinParams(int minParams) {
+		this.minParams = minParams;
+	}
+
 
 	public XMLAction() {
 	}
@@ -46,10 +95,10 @@ public class XMLAction implements SlashAction {
 		this.name=name;
 		this.action=action;
 		this.map=action.getAttributes();
+		this.maxParams=action.getMaxParams();
+		this.minParams=action.getMinParams();
 	}
 
-	
-	
 	
 	
 	
@@ -57,34 +106,45 @@ public class XMLAction implements SlashAction {
 	public boolean execute(String[] params, String remainder) {
 		final RPAction add = new RPAction();
 		add.put("type", name);
-		if(map!= null)
+		System.out.println(map);
+		//System.out.println(remainder);
+		if(map== null) {
+			return false;
+		}
+			//System.out.println(map.toString());
+		System.out.println(map.keySet());
 		for(String key: map.keySet())
-		{
-			
-			if(map.get(key).containsKey("param"))
+		{	
+//			if(map.get(key)==null) {
+//				return false;
+//			}
+			System.out.println(map.get(key));
+			if(map.get(key).containsKey("param")) {
+				//System.out.println(Integer.parseInt(map.get(key).get("param")));
+				//System.out.println(params[0]);
 				add.put(key, params[Integer.parseInt(map.get(key).get("param"))]);
-			else
+			}else
 				if(map.get(key).containsKey("string"))
 					add.put(key, map.get(key).get("string"));
 				else
-					add.put(key, remainder);
-				
-		
-			ClientSingletonRepository.getClientFramework().send(add);
+					if(map.get(key).containsKey("remainder")) {
+						add.put(key, remainder);
+						//System.out.println(remainder);
+					}else
+						return false;
 		}
+		ClientSingletonRepository.getClientFramework().send(add);
 		return true;
 	}
 
 	@Override
 	public int getMaximumParameters() {
-		// TODO Auto-generated method stub
-		return 0;
+		return maxParams;
 	}
 
 	@Override
 	public int getMinimumParameters() {
-		// TODO Auto-generated method stub
-		return 0;
+		return minParams;
 	}
 
 }
