@@ -46,10 +46,10 @@ public class DefaultActionManager {
 	}
 	
 	private boolean addAction(DefaultAction action) {
-		if(defaultActions.containsKey(action.getType())) {
-			LOGGER.warn("Repeated action name: "+ action.getType());
+		if(defaultActions.containsKey(action.getName())) {
+			LOGGER.warn("Repeated action name: "+ action.getName());
 		}
-		defaultActions.put(action.getType(), action);
+		defaultActions.put(action.getName(), action);
 		return true;
 	}
 

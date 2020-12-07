@@ -27,7 +27,7 @@ public class ActionGroupsXMLLoader {
 
 		final List<DefaultAction> list = new LinkedList<DefaultAction>();
 		for (final URI groupUri : groups) {
-			logger.debug("Loading spell group [" + groupUri + "]");
+			logger.debug("Loading action group [" + groupUri + "]");
 			list.addAll(loader.load(groupUri));
 		}
 

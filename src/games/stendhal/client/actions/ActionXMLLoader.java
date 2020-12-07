@@ -32,9 +32,13 @@ public class ActionXMLLoader extends DefaultHandler{
 
 	private boolean attributeTagFound;
 
-	private int minParams;
+	private String minParams;
 	
-	private int maxParams;
+	private String maxParams;
+	
+	private String prev;
+
+	private String name;
 	
 	public ActionXMLLoader() {}
 	
@@ -68,14 +72,17 @@ public class ActionXMLLoader extends DefaultHandler{
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
+		if (qName.equals("action")) {
+			name = attributes.getValue("name");
+		}
 		if (qName.equals("type")) {
 			type = attributes.getValue(qName);
 		}
-		if (qName.equals("minparams")) {
-			minParams = Integer.parseInt(attributes.getValue(qName));
+		if (qName.equals("min_params")) {
+			minParams = attributes.getValue(qName);
 		}
-		if (qName.equals("maxparams")) {
-			maxParams = Integer.parseInt(attributes.getValue(qName));
+		if (qName.equals("max_params")) {
+			maxParams = attributes.getValue(qName);
 		}
 		if (qName.equals("implementation")) {
 			implementation = attributes.getValue(qName);
@@ -85,8 +92,13 @@ public class ActionXMLLoader extends DefaultHandler{
 			attributeTagFound = true;
 		}
 		if(attributeTagFound) {
-			attributeValues.put(qName, new HashMap<String, String>());
+			if ((qName.equals("param") || qName.equals("remainder") || qName.equals("string"))) {
+				HashMap<String, String> inputMap = new HashMap<String, String>();
+				inputMap.put(qName, attributes.getValue("value"));
+				attributeValues.put(prev, inputMap);
+			}
 		}
+		this.prev = qName;
 	}
 
 	@Override
@@ -96,6 +108,7 @@ public class ActionXMLLoader extends DefaultHandler{
 			DefaultAction action = new DefaultAction(type, implementation);
 			action.setMinParams(minParams);
 			action.setMaxParams(maxParams);
+			action.setName(name);
 			for (String key: attributeValues.keySet()) {
 				Map<String, String> source = new HashMap<String, String>();
 				if (attributeValues.get(key).containsKey("param")){

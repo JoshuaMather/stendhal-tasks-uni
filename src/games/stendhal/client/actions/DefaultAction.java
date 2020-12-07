@@ -1,42 +1,37 @@
 package games.stendhal.client.actions;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 
 public class DefaultAction {
 	
-	private static final Logger logger = Logger.getLogger(DefaultAction.class);
-	
 	private String type;
 	
-	private Class<?> implementation;
+	private String implementation;
 	
-	private Map<String, Map<String, String>> attributes;
+	private Map<String, Map<String, String>> attributes = new HashMap<String, Map<String, String>>();
 	
-	private int minParams;
+	private String minParams;
 
-	private int maxParams;
+	private String maxParams;
+	
+	private String Name;
 
 	public DefaultAction (String type, String implementation) {
-		try {
-			this.type = type;
-			this.implementation = Class.forName(implementation);
-		}
-		catch (ClassNotFoundException e) {
-			logger.error("Error while creating DefaultSpell", e);
-		}
+		this.type = type;
+		this.implementation = implementation;
 	}
 	
 	public void setType(String typeIn) {
 		this.type = typeIn;
 	}
 	
-	public void setImplementation(Class<?> imp) {
+	public void setImplementation(String imp) {
 		this.implementation = imp;
 	}
 	
-	public Class<?> getImplementation (){
+	public String getImplementation (){
 		return this.implementation;
 	}
 	
@@ -48,23 +43,31 @@ public class DefaultAction {
 		this.attributes.put(type, source);
 	}
 
-	public int getMaxParams() {
+	public String getMaxParams() {
 		return maxParams;
 	}
 
-	public void setMaxParams(int maxParams) {
+	public void setMaxParams(String maxParams) {
 		this.maxParams = maxParams;
 	}
 
-	public int getMinParams() {
+	public String getMinParams() {
 		return minParams;
 	}
 
-	public void setMinParams(int minParams) {
+	public void setMinParams(String minParams) {
 		this.minParams = minParams;
 	}
 	
 	public Map<String, Map<String, String>> getAttributes() {
 		return this.attributes;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
 	}
 }
