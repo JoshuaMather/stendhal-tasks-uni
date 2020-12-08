@@ -1,6 +1,3 @@
-/**
- * 
- */
 package games.stendhal.client.actions;
 
 import java.net.URI;
@@ -12,8 +9,7 @@ import org.apache.log4j.Logger;
 
 
 /**
- * @author csimage
- *
+ * DefaultActionManager class to handle the loading and parsing of actions from XML.
  */
 public class DefaultActionManager {
 	
@@ -24,7 +20,7 @@ public class DefaultActionManager {
 	
 	/**
 	 * Contructor for DefaultActionManager
-	 * 
+	 * sets up the hashMap of default actions and calls buildActionsTable to populate the HashMap.
 	 */
 	
 	public DefaultActionManager() {
@@ -32,7 +28,10 @@ public class DefaultActionManager {
 		buildActionsTables();
 	}
 	
-	
+	/**
+	 * Creates a new instance of ActionGroupsXMLLoader and loads all of the actions from XML.
+	 * Calls addAction method to place the action within the defaultActions list.
+	 */
 	private void buildActionsTables() {
 		try {
 			final ActionGroupsXMLLoader loader = new ActionGroupsXMLLoader(new URI("/data/conf/actions.xml"));
@@ -45,6 +44,10 @@ public class DefaultActionManager {
 		}
 	}
 	
+	/**
+	 * Adds an action, checking if the action is already in the list of actions.
+	 * @param action
+	 */
 	private boolean addAction(DefaultAction action) {
 		if(defaultActions.containsKey(action.getName())) {
 			LOGGER.warn("Repeated action name: "+ action.getName());

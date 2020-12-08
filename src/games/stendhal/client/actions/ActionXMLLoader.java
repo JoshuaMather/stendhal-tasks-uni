@@ -18,30 +18,39 @@ import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
+/**
+ * ActionXMLLoader class extends DefaultHandler to parse and read from XML files.
+ * Returns a List of all actions loaded to ActionXMLGroupLoader using a load method.
+ */
 public class ActionXMLLoader extends DefaultHandler{
 	private static final Logger logger = Logger.getLogger(ActionXMLLoader.class);
 
-	private String type;
+	private String type; //current action type.
 
-	private String implementation;
+	private String implementation; //current action implementation
 
-	private Map<String, HashMap<String, String>> attributeValues;
+	private Map<String, HashMap<String, String>> attributeValues; //Map of all attribute within XML
 
-	private List<DefaultAction> loadedActions;
+	private List<DefaultAction> loadedActions; //List of actions loaded
 
-	private boolean attributeTagFound;
+	private boolean attributeTagFound; //flag to check if attributes tag has been hit.
 
-	private String minParams;
+	private String minParams; //action minparams
 	
-	private String maxParams;
+	private String maxParams; //action maxparams
 	
-	private String prev;
+	private String prev; //previous item loaded by XML
 
-	private String name;
+	private String name; //action name
 	
 	public ActionXMLLoader() {}
 	
+	/**
+	 * Loads the parser and throws an error if the actions couldn't be loaded.
+	 * @param uri
+	 * @return A list of loaded actions
+	 * @throws SAXException
+	 */
 	public Collection<DefaultAction> load (URI uri) throws SAXException{
 		loadedActions = new LinkedList<DefaultAction>();
 		final SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -69,29 +78,34 @@ public class ActionXMLLoader extends DefaultHandler{
 		return loadedActions;
 	}
 	
+	/**
+	 * Start of an XML element.
+	 * Places the correct values into the current type, minParams etc.
+	 * If attribute tag has been found, builds the attributeValues HashMap.
+	 */
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		if (qName.equals("action")) {
 			name = attributes.getValue("name");
 		}
-		if (qName.equals("type")) {
+		else if (qName.equals("type")) { //action type
 			type = attributes.getValue(qName);
 		}
-		if (qName.equals("min_params")) {
+		else if (qName.equals("min_params")) { //action min params
 			minParams = attributes.getValue(qName);
 		}
-		if (qName.equals("max_params")) {
+		else if (qName.equals("max_params")) { //action max params
 			maxParams = attributes.getValue(qName);
 		}
-		if (qName.equals("implementation")) {
+		else if (qName.equals("implementation")) { //action implementation
 			implementation = attributes.getValue(qName);
 		}
-		if (qName.equals("attributes")) {
+		else if (qName.equals("attributes")) { //action attributes
 			attributeValues = new HashMap<String, HashMap<String, String>>();
 			attributeTagFound = true;
 		}
-		if(attributeTagFound) {
+		if(attributeTagFound) { //create map of <"val", <"source" , "val">>
 			if ((qName.equals("param") || qName.equals("remainder") || qName.equals("string"))) {
 				HashMap<String, String> inputMap = new HashMap<String, String>();
 				inputMap.put(qName, attributes.getValue("value"));
@@ -100,7 +114,13 @@ public class ActionXMLLoader extends DefaultHandler{
 		}
 		this.prev = qName;
 	}
-
+	
+	/**
+	 * Logic for the end of each XML element.
+	 * Interested only in the end of each 'action' element.
+	 * Loads all of the required attributes into a new instance of DefaultAction.
+	 * Adds created default actions into the list of loaded actions.
+	 */
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -109,11 +129,11 @@ public class ActionXMLLoader extends DefaultHandler{
 			action.setMinParams(minParams);
 			action.setMaxParams(maxParams);
 			action.setName(name);
-			for (String key: attributeValues.keySet()) {
-				Map<String, String> source = new HashMap<String, String>();
+			for (String key: attributeValues.keySet()) { //for each attribute type
+				Map<String, String> source = new HashMap<String, String>(); //init map
 				if (attributeValues.get(key).containsKey("param")){
 					source.put("param", attributeValues.get(key).get("param"));
-					action.addAttribute(qName, source);
+					action.addAttribute(qName, source); 
 				}
 				else if (attributeValues.get(key).containsKey("string")) {
 					source.put("string", attributeValues.get(key).get("string"));
@@ -124,7 +144,7 @@ public class ActionXMLLoader extends DefaultHandler{
 					action.addAttribute(qName, source);
 				}
 			}
-			loadedActions.add(action);
+			loadedActions.add(action); //add to loaded actions
 		}
 		if(qName.equals("attributes")) {
 			attributeTagFound = false;

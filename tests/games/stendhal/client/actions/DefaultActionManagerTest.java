@@ -14,6 +14,9 @@ public class DefaultActionManagerTest {
 		manager = new DefaultActionManager();
 	}
 	
+	/**
+	 * Tests that whoAction is loaded from the XML.
+	 */
 	@Test
 	public void testForWhoAction() {	
 		Map<String, DefaultAction> actions = manager.getActions();
@@ -21,6 +24,9 @@ public class DefaultActionManagerTest {
 		assertTrue(actions.get("who") != null);
 	}
 	
+	/**
+	 * Tests that emoteActions is loaded from the XML.
+	 */
 	@Test
 	public void testForEmoteAction() {	
 		Map<String, DefaultAction> actions = manager.getActions();
@@ -28,6 +34,9 @@ public class DefaultActionManagerTest {
 		assertTrue(actions.get("emote") != null);
 	}
 	
+	/**
+	 * Tests that gagAction is loaded from the XML.
+	 */
 	@Test
 	public void testForGagAction() {	
 		Map<String, DefaultAction> actions = manager.getActions();
@@ -35,6 +44,9 @@ public class DefaultActionManagerTest {
 		assertTrue(actions.get("gag") != null);
 	}
 	
+	/**
+	 * Tests that banAction is loaded from the XML.
+	 */
 	@Test
 	public void testForBanAction() {	
 		Map<String, DefaultAction> actions = manager.getActions();
