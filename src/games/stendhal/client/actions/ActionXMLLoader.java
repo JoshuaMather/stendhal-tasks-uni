@@ -23,6 +23,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * Returns a List of all actions loaded to ActionXMLGroupLoader using a load method.
  */
 public class ActionXMLLoader extends DefaultHandler{
+	private static final String VALUE = "value";
+
 	private static final Logger logger = Logger.getLogger(ActionXMLLoader.class);
 
 	private String type; //current action type.
@@ -91,16 +93,16 @@ public class ActionXMLLoader extends DefaultHandler{
 				name = attributes.getValue("name");
 				break;
 			case "type": //action type
-				type = attributes.getValue("value");
+				type = attributes.getValue(VALUE);
 				break;
 			case "min_params": //action min params
-				minParams = attributes.getValue("value");
+				minParams = attributes.getValue(VALUE);
 				break;
 			case "max_params": //action max params
-				maxParams = attributes.getValue("value");
+				maxParams = attributes.getValue(VALUE);
 				break;
 			case "implementation": //action implementation
-				implementation = attributes.getValue("value");
+				implementation = attributes.getValue(VALUE);
 				break;
 			case "attributes": //action attributes
 				attributeValues = new HashMap<String, HashMap<String, String>>();
@@ -112,7 +114,7 @@ public class ActionXMLLoader extends DefaultHandler{
 		if(attributeTagFound) { //create map of <"val", <"source" , "val">>
 			if ((qName.equals("param") || qName.equals("remainder") || qName.equals("string"))) {
 				HashMap<String, String> inputMap = new HashMap<String, String>();
-				inputMap.put(qName, attributes.getValue("value"));
+				inputMap.put(qName, attributes.getValue(VALUE));
 				attributeValues.put(prev, inputMap);
 			}
 		}
