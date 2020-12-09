@@ -7,9 +7,6 @@ import games.stendhal.client.ClientSingletonRepository;
 import marauroa.common.game.RPAction;
 
 public class XMLAction implements SlashAction {
-
-	
-	
 	private String name;
 	private DefaultAction action;
 	private Map<String,Map<String,String>> map;
@@ -91,6 +88,11 @@ public class XMLAction implements SlashAction {
 	public XMLAction() {
 	}
 	
+	/**
+	 * Constructor for XMLAction that sets name, DefaultAction and min and max parameters
+	 * @param name
+	 * @param action
+	 */
 	public XMLAction(String name, DefaultAction action) {
 		this.name=name;
 		this.action=action;
@@ -101,7 +103,11 @@ public class XMLAction implements SlashAction {
 
 	
 	
-	
+	/**
+	 * Method for executing the action
+	 * @param params
+	 * @param  remainder
+	 */
 	@Override
 	public boolean execute(String[] params, String remainder) {
 		final RPAction add = new RPAction();
@@ -137,11 +143,17 @@ public class XMLAction implements SlashAction {
 		return true;
 	}
 
+	/**
+	 * Method to get the maximum parameters for an action
+	 */
 	@Override
 	public int getMaximumParameters() {
 		return maxParams;
 	}
 
+	/**
+	 * Method to get the minimum parameters for an action
+	 */
 	@Override
 	public int getMinimumParameters() {
 		return minParams;
