@@ -86,24 +86,28 @@ public class ActionXMLLoader extends DefaultHandler{
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		if (qName.equals("action")) {
-			name = attributes.getValue("name");
-		}
-		else if (qName.equals("type")) { //action type
-			type = attributes.getValue(qName);
-		}
-		else if (qName.equals("min_params")) { //action min params
-			minParams = attributes.getValue(qName);
-		}
-		else if (qName.equals("max_params")) { //action max params
-			maxParams = attributes.getValue(qName);
-		}
-		else if (qName.equals("implementation")) { //action implementation
-			implementation = attributes.getValue(qName);
-		}
-		else if (qName.equals("attributes")) { //action attributes
-			attributeValues = new HashMap<String, HashMap<String, String>>();
-			attributeTagFound = true;
+		switch (qName) {
+			case "action":
+				name = attributes.getValue("name");
+				break;
+			case "type": //action type
+				type = attributes.getValue(qName);
+				break;
+			case "min_params": //action min params
+				minParams = attributes.getValue(qName);
+				break;
+			case "max_params": //action max params
+				maxParams = attributes.getValue(qName);
+				break;
+			case "implementation": //action implementation
+				implementation = attributes.getValue(qName);
+				break;
+			case "attributes": //action attributes
+				attributeValues = new HashMap<String, HashMap<String, String>>();
+				attributeTagFound = true;
+				break;
+			default:
+				
 		}
 		if(attributeTagFound) { //create map of <"val", <"source" , "val">>
 			if ((qName.equals("param") || qName.equals("remainder") || qName.equals("string"))) {

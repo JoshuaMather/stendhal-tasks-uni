@@ -4,22 +4,26 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class DefaultActionManagerTest {
 	
-	DefaultActionManager manager;
+	private static DefaultActionManager manager;
+	private static Map<String, DefaultAction> actions;
 	
-	public DefaultActionManagerTest() {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		manager = new DefaultActionManager();
+		actions = manager.getActions();
 	}
+	
 	
 	/**
 	 * Tests that whoAction is loaded from the XML.
 	 */
 	@Test
 	public void testForWhoAction() {	
-		Map<String, DefaultAction> actions = manager.getActions();
 		assertTrue(actions.containsKey("who"));
 		assertTrue(actions.get("who") != null);
 	}
@@ -29,7 +33,6 @@ public class DefaultActionManagerTest {
 	 */
 	@Test
 	public void testForEmoteAction() {	
-		Map<String, DefaultAction> actions = manager.getActions();
 		assertTrue(actions.containsKey("emote"));
 		assertTrue(actions.get("emote") != null);
 	}
@@ -39,7 +42,6 @@ public class DefaultActionManagerTest {
 	 */
 	@Test
 	public void testForGagAction() {	
-		Map<String, DefaultAction> actions = manager.getActions();
 		assertTrue(actions.containsKey("gag"));
 		assertTrue(actions.get("gag") != null);
 	}
@@ -49,7 +51,6 @@ public class DefaultActionManagerTest {
 	 */
 	@Test
 	public void testForBanAction() {	
-		Map<String, DefaultAction> actions = manager.getActions();
 		assertTrue(actions.containsKey("ban"));
 		assertTrue(actions.get("ban") != null);
 	}
