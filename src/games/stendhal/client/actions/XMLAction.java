@@ -13,6 +13,22 @@ public class XMLAction implements SlashAction {
 	private int maxParams;
 	private int minParams;
 	
+	public XMLAction() {
+	}
+	
+	/**
+	 * Constructor for XMLAction that sets name, DefaultAction and min and max parameters
+	 * @param name
+	 * @param action
+	 */
+	public XMLAction(String name, DefaultAction action) {
+		this.name=name;
+		this.action=action;
+		this.map=action.getAttributes();
+		this.maxParams=Integer.parseInt(action.getMaxParams());
+		this.minParams=Integer.parseInt(action.getMinParams());
+	}
+	
 	
 	/**
 	 * @return the name
@@ -83,24 +99,6 @@ public class XMLAction implements SlashAction {
 	public void setMinParams(int minParams) {
 		this.minParams = minParams;
 	}
-
-
-	public XMLAction() {
-	}
-	
-	/**
-	 * Constructor for XMLAction that sets name, DefaultAction and min and max parameters
-	 * @param name
-	 * @param action
-	 */
-	public XMLAction(String name, DefaultAction action) {
-		this.name=name;
-		this.action=action;
-		this.map=action.getAttributes();
-		this.maxParams=Integer.parseInt(action.getMaxParams());
-		this.minParams=Integer.parseInt(action.getMinParams());
-	}
-
 	
 	
 	/**
