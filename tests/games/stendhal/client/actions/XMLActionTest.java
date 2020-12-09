@@ -82,8 +82,6 @@ public class XMLActionTest {
 		Map<String,String> pair=new HashMap<String,String>();
 		pair.put("remainder","-1");		
 		map.put("text",pair);
-		System.out.println(map);
-		//pair.clear();
 		
 		action.setMap(map);
 		

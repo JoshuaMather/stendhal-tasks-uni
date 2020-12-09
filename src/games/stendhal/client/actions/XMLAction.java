@@ -110,22 +110,13 @@ public class XMLAction implements SlashAction {
 	public boolean execute(String[] params, String remainder) {
 		final RPAction add = new RPAction();
 		add.put("type", name);
-		System.out.println(map);
-		//System.out.println(remainder);
 		if(map== null) {
 			return false;
 		}
-			//System.out.println(map.toString());
-		System.out.println(map.keySet());
+
 		for(String key: map.keySet())
 		{	
-//			if(map.get(key)==null) {
-//				return false;
-//			}
-			System.out.println(map.get(key));
 			if(map.get(key).containsKey("param")) {
-				//System.out.println(Integer.parseInt(map.get(key).get("param")));
-				//System.out.println(params[0]);
 				add.put(key, params[Integer.parseInt(map.get(key).get("param"))]);
 			}else
 				if(map.get(key).containsKey("string"))
@@ -133,7 +124,7 @@ public class XMLAction implements SlashAction {
 				else
 					if(map.get(key).containsKey("remainder")) {
 						add.put(key, remainder);
-						//System.out.println(remainder);
+
 					}else
 						return false;
 		}
