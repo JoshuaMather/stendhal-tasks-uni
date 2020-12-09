@@ -170,25 +170,26 @@ Authors of Stendhal are:
 - Alexandru-Mihai Suciu
   . Bug Fixer
   . Artist( item: flower pot)
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created flower pot)
 - Daniel King
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created flower pot)
 - George Tarleton
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created Wand of Sluggishness)
 - Alex Iordachescu
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created River Ferry)
 - Oliver Pryde
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created Wand of Sluggishness)
 - Manav Gupta
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created Wand of Sluggishness)
 - Joshua Mather
   . Bug Fixer
-  . Coder
+  . Coder (migrated part of actions from Java classes to XMLs, created River Ferry)
+
 
 We also thank many who have contributed to Stendhal by providing patches,
 which the rest of the team commited on their behalf.

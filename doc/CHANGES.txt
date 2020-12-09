@@ -1,7 +1,33 @@
 Changelog
 ---------
 ---------
+1.37
 
+*architecture*
+-migrated most actions from a Java class format to XMLs similar with how items are implemented:
+	-AlterAction
+	-AddBuddyAction
+	-AlterCreatureAction
+	-BanAction
+	-GagAction
+	-GroupMessageAction
+	-InspectAction
+	-InspectQuestAction
+	-InvisibleAction
+	-JailAction
+	-ListProducersAction
+	-EmoteAction
+	-TravelLogAction
+	-RemoveBuddyAction
+	-SentenceAction
+	-StoreMessageAction
+	-SupportAnswerAction
+	-SupportAction
+	-TeleportAction
+	-TellAllAction
+	-WhoAction
+	-RemoveDetailAction
+	
 
 1.36
 
