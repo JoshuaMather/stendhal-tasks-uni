@@ -19,7 +19,7 @@ public class DefaultActionManager {
 	
 	
 	/**
-	 * Contructor for DefaultActionManager
+	 * Constructor for DefaultActionManager
 	 * sets up the hashMap of default actions and calls buildActionsTable to populate the HashMap.
 	 */
 	
