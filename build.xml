@@ -1210,6 +1210,12 @@ d = 9017093486007323270605414717455737376618092805104733236083857811315606869372
 				<filename name="shops.xml"/>
 			</fileset>
 		</schemavalidate>
+		<schemavalidate>
+			<schema namespace="stendhal" file="${config_dir}/actions.xsd" />
+			<fileset dir="data/conf/actions">
+				<include name="*.xml"/>
+			</fileset>
+		</schemavalidate>
 	</target>
 
 	<target name="compilejs" depends="js-prepare, js-invoke-compiler" />

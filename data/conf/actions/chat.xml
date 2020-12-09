@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal ../actions.xsd ">
+	<action name="emote">
+		<type value="emote" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation />
+		<attributes>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+</actions>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal ../actions.xsd ">
+	<action name="alter">
+		<type value="alter" />
+		<min_params value="3" />
+		<max_params value="3" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<stat>
+				<param value="1" /></stat>
+			<mode>
+				<param value="2" /></mode>
+			<value>
+				<remainder value="-1" /></value></attributes>
+	</action>
+	<action name="alter creature">
+		<type value="altercreature" />
+		<min_params value="2" />
+		<max_params value="2" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<text>
+				<param value="1" /></text></attributes>
+	</action>
+	<action name="ban">
+		<type value="ban" />
+		<min_params value="2" />
+		<max_params value="2" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<hours>
+				<param value="1" /></hours>
+			<reason>
+				<remainder value="-1" /></reason></attributes>
+	</action>
+	<action name="gag">
+		<type value="gag" />
+		<min_params value="2" />
+		<max_params value="2" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<minutes>
+				<param value="1" /></minutes>
+			<reason>
+				<remainder value="-1" /></reason></attributes>
+	</action>
+	<action name="inspect">
+		<type value="inspect" />
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" ></param></target></attributes>
+	</action>
+	<action name="inspect quest">
+		<type value="inspectquest" />
+		<min_params value="2" />
+		<max_params value="2" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<quest_slot>
+				<param value="1" /></quest_slot></attributes>
+	</action>
+	<action name="invisible">
+		<type value="invisible" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation class-name="" />
+		<attributes></attributes>
+	</action>
+	<action name="jail">
+		<type value="jail" />
+		<min_params value="2" />
+		<max_params value="2" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<minutes>
+				<param value="1" /></minutes>
+			<reason>
+				<remainder value="-1" /></reason></attributes>
+	</action>
+	<action name="support answer">
+		<type value="supportanswer" />
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+	<action name="teleport">
+		<type value="teleport" />
+		<min_params value="4" />
+		<max_params value="4" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<zone>
+				<param value="1" /></zone>
+			<x>
+				<param value="2" /></x>
+			<y>
+				<param value="3" /></y></attributes>
+	</action>
+	<action name="tell all">
+		<type value="tellall" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation class-name="" />
+		<attributes>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+</actions>

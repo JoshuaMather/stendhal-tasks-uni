@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal ../actions.xsd ">
+	<action name="create challenge">
+		<type value="challenge" />
+		<min_params value="1" ></min_params>
+		<max_params value="1" ></max_params>
+		<implementation />
+		<attributes>
+			<action>
+				<string value="open" ></string></action>
+			<target>
+				<param value="0" /></target></attributes>
+	</action>
+	<action name="accept challenge">
+		<type value="challenge" ></type>
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation />
+		<attributes>
+			<action>
+				<string value="accept" /></action>
+			<target>
+				<param value="0" /></target></attributes>
+	</action>
+	<action name="group message">
+		<type value="group_message" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation />
+		<attributes>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+	<action name="remove detail">
+		<type value="removedetails" />
+		<min_params value="0" ></min_params>
+		<max_params value="0" />
+		<implementation />
+		<attributes></attributes>
+	</action>
+	<action name="sentence">
+		<type value="sentence" ></type>
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation />
+		<attributes>
+			<value>
+				<remainder value="-1" ></remainder></value></attributes>
+	</action>
+	<action name="store message">
+		<type value="storemessage" />
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation />
+		<attributes>
+			<target>
+				<param value="0" /></target>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+	<action name="support">
+		<type value="support" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation />
+		<attributes>
+			<text>
+				<remainder value="-1" /></text></attributes>
+	</action>
+	<action name="travel log">
+		<type value="progressstatus" />
+		<min_params value="0" />
+		<max_params value="0" />
+		<implementation />
+		<attributes></attributes>
+	</action>
+</actions>

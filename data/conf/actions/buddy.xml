@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal ../actions.xsd ">
+	<action name="add buddy">
+		<type value="addbuddy" />
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target></attributes>
+	</action>
+	<action name="remove buddy">
+		<type value="removebuddy" />
+		<min_params value="1" />
+		<max_params value="1" />
+		<implementation class-name="" />
+		<attributes>
+			<target>
+				<param value="0" /></target></attributes>
+	</action>
+</actions>
