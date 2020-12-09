@@ -95,8 +95,8 @@ public class XMLAction implements SlashAction {
 		this.name=name;
 		this.action=action;
 		this.map=action.getAttributes();
-		this.maxParams=action.getMaxParams();
-		this.minParams=action.getMinParams();
+		this.maxParams=Integer.parseInt(action.getMaxParams());
+		this.minParams=Integer.parseInt(action.getMinParams());
 	}
 
 	

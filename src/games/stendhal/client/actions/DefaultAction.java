@@ -14,9 +14,9 @@ public class DefaultAction {
     
     private Map<String, Map<String, String>> attributes;
     
-    private int minParams;
+    private String minParams;
 
-    private int maxParams;
+    private String maxParams;
 
     public DefaultAction (String type, String implementation) {
    	 try {
@@ -48,19 +48,19 @@ public class DefaultAction {
    	 this.attributes.put(type, source);
     }
 
-    public int getMaxParams() {
+    public String getMaxParams() {
    	 return maxParams;
     }
 
-    public void setMaxParams(int maxParams) {
+    public void setMaxParams(String maxParams) {
    	 this.maxParams = maxParams;
     }
 
-    public int getMinParams() {
+    public String getMinParams() {
    	 return minParams;
     }
 
-    public void setMinParams(int minParams) {
+    public void setMinParams(String minParams) {
    	 this.minParams = minParams;
     }
     

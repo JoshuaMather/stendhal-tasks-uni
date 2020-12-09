@@ -21,6 +21,7 @@ import static games.stendhal.common.constants.General.COMBAT_KARMA;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Map;
 
 /**
  * Manages Slash Action Objects.
@@ -42,7 +43,7 @@ public class XMLSlashActionRepository {
 		
 		DefaultActionManager manager=new DefaultActionManager();
 		
-		HashMap<String, DefaultAction> map=manager.getActions();
+		Map<String, DefaultAction> map=manager.getActions();
 		
 //		for(String name: map.keySet())
 //			{
