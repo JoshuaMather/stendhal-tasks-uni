@@ -19,13 +19,13 @@ import marauroa.common.game.RPAction;
 public class XMLActionTest {
 	
 	
-	private static XMLAction action=new XMLAction();
-	private static Map<String,Map<String,String>> map=new HashMap<String,Map<String,String>>();
+	private static XMLAction action = new XMLAction();
+	private static Map<String,Map<String,String>> map = new HashMap<String,Map<String,String>>();
 	
 	@Before
 	public  void setUpBefore() throws Exception {
-	map=new HashMap<String,Map<String,String>>();
-	action=new XMLAction();
+	map = new HashMap<String,Map<String,String>>();
+	action = new XMLAction();
 	action.setMap(new HashMap<String,Map<String,String>>());
 	}
 
@@ -40,9 +40,9 @@ public class XMLActionTest {
 	@Test
 	public void testExecuteAddBuddy() {
 		
-		Map<String,String> pair=new HashMap<String,String>();
-		pair.put("param","0");		
-		map.put("target",pair);
+		Map<String, String> pair=new HashMap<String, String>();
+		pair.put("param", "0");		
+		map.put("target", pair);
 		action.setMap(map);
 		action.setName("addbuddy");
 		
@@ -90,10 +90,8 @@ public class XMLActionTest {
 		new MockStendhalClient() {
 			@Override
 			public void send(final RPAction action) {
-//				for (final String attrib : action) {
 					assertEquals("emote", action.get("type"));
 					assertEquals("<3", action.get("text"));
-//				}
 			}
 		};
 		assertTrue(action.execute(null,"<3"));
