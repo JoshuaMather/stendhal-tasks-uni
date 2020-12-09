@@ -108,6 +108,7 @@ public class XMLAction implements SlashAction {
 	 */
 	@Override
 	public boolean execute(String[] params, String remainder) {
+		
 		final RPAction add = new RPAction();
 		add.put("type", name);
 		if(map== null) {
@@ -119,9 +120,9 @@ public class XMLAction implements SlashAction {
 			if(map.get(key).containsKey("param")) {
 				add.put(key, params[Integer.parseInt(map.get(key).get("param"))]);
 			}else
-				if(map.get(key).containsKey("string"))
+				if(map.get(key).containsKey("string")) {
 					add.put(key, map.get(key).get("string"));
-				else
+				}else
 					if(map.get(key).containsKey("remainder")) {
 						add.put(key, remainder);
 

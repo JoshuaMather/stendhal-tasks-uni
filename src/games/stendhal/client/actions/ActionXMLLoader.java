@@ -91,16 +91,16 @@ public class ActionXMLLoader extends DefaultHandler{
 				name = attributes.getValue("name");
 				break;
 			case "type": //action type
-				type = attributes.getValue(qName);
+				type = attributes.getValue("value");
 				break;
 			case "min_params": //action min params
-				minParams = attributes.getValue(qName);
+				minParams = attributes.getValue("value");
 				break;
 			case "max_params": //action max params
-				maxParams = attributes.getValue(qName);
+				maxParams = attributes.getValue("value");
 				break;
 			case "implementation": //action implementation
-				implementation = attributes.getValue(qName);
+				implementation = attributes.getValue("value");
 				break;
 			case "attributes": //action attributes
 				attributeValues = new HashMap<String, HashMap<String, String>>();
@@ -137,15 +137,15 @@ public class ActionXMLLoader extends DefaultHandler{
 				Map<String, String> source = new HashMap<String, String>(); //init map
 				if (attributeValues.get(key).containsKey("param")){
 					source.put("param", attributeValues.get(key).get("param"));
-					action.addAttribute(qName, source); 
+					action.addAttribute(key, source); 
 				}
 				else if (attributeValues.get(key).containsKey("string")) {
 					source.put("string", attributeValues.get(key).get("string"));
-					action.addAttribute(qName, source);
+					action.addAttribute(key, source);
 				}
 				else {
 					source.put("remainder", attributeValues.get(key).get("remainder"));
-					action.addAttribute(qName, source);
+					action.addAttribute(key, source);
 				}
 			}
 			loadedActions.add(action); //add to loaded actions

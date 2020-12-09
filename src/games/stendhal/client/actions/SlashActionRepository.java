@@ -21,6 +21,7 @@ import static games.stendhal.common.constants.General.COMBAT_KARMA;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Map;
 
 /**
  * Manages Slash Action Objects.
@@ -34,25 +35,31 @@ public class SlashActionRepository {
 	 * Registers the available Action.
 	 */
 	public static void register() {
+		DefaultActionManager manager=new DefaultActionManager();
+		
+		Map<String, DefaultAction> map=manager.getActions();
+
 		final SlashAction msg = new MessageAction();
 		final SlashAction supporta = new SupportAnswerAction();
-		final SlashAction who = new WhoAction();
+		final SlashAction who = new XMLAction("who",map.get("who"));
 		final SlashAction help = new HelpAction();
 		final GroupMessageAction groupMessage = new GroupMessageAction();
-
+		
+		
+		
 		actions.put("/", new RemessageAction());
-		actions.put("add", new AddBuddyAction());
+		actions.put("add", new XMLAction("add buddy",map.get("add buddy")));
 		actions.put("adminlevel", new AdminLevelAction());
 		actions.put("adminnote", new AdminNoteAction());
-		actions.put("alter", new AlterAction());
-		actions.put("altercreature", new AlterCreatureAction());
+		actions.put("alter", new XMLAction("alter",map.get("alter")));
+		actions.put("altercreature", new XMLAction("alter creature",map.get("alter creature")));
 		actions.put(ALTERKILL, new AlterKillAction());
 		actions.put("alterquest", new AlterQuestAction());
 		actions.put("answer", new AnswerAction());
 		actions.put("atlas", new AtlasBrowserLaunchCommand());
 		actions.put("away", new AwayAction());
 
-		actions.put("ban", new BanAction());
+		actions.put("ban", new XMLAction("ban",map.get("ban")));
 
 		actions.put("clear", new ClearChatLogAction());
 		actions.put("clickmode", new ClickModeAction());
@@ -64,25 +71,25 @@ public class SlashActionRepository {
 
 		actions.put("cast", new CastSpellAction());
 
-		actions.put("gag", new GagAction());
+		actions.put("gag", new XMLAction("gag",map.get("gag")));
 		actions.put("gmhelp", new GMHelpAction());
 		actions.put("group", new GroupManagementAction(groupMessage));
-		actions.put("groupmessage", groupMessage);
+		actions.put("groupmessage", new XMLAction("group message",map.get("group message")));
 		actions.put("grumpy", new GrumpyAction());
 
 		actions.put("help", help);
 
 		actions.put("ignore", new IgnoreAction());
-		actions.put("inspect", new InspectAction());
+		actions.put("inspect", new XMLAction("inspect",map.get("inspect")));
 		actions.put(INSPECTKILL, new InspectKillAction());
-		actions.put(INSPECTQUEST, new InspectQuestAction());
-		actions.put("invisible", new InvisibleAction());
+		actions.put(INSPECTQUEST, new XMLAction("inspect quest",map.get("inspect quest")));
+		actions.put("invisible", new XMLAction("invisible",map.get("invisible")));
 
-		actions.put("jail", new JailAction());
+		actions.put("jail", new XMLAction("jail",map.get("jail")));
 
-		actions.put("listproducers", new ListProducersAction());
+		actions.put("listproducers", new XMLAction("listproducers",map.get("listproducers")));
 
-		actions.put("me", new EmoteAction());
+		actions.put("me", new XMLAction("emote",map.get("emote")));
 		actions.put("msg", msg);
 		actions.put("mute", new MuteAction());
 
@@ -90,39 +97,38 @@ public class SlashActionRepository {
 
 		actions.put("p", groupMessage);
 		actions.put("profile", new ProfileAction());
-		actions.put("travellog", new TravelLogAction());
+		actions.put("travellog", new XMLAction("travel log",map.get("travel log")));
 
 		actions.put("quit", new QuitAction());
 
-		actions.put("remove", new RemoveBuddyAction());
+		actions.put("remove", new XMLAction("remove buddy",map.get("remove buddy")));
 
-		actions.put("sentence", new SentenceAction());
-		actions.put("status", new SentenceAction()); // Alias for /sentence
+		actions.put("sentence", new XMLAction("sentence",map.get("sentence")));
+		actions.put("status", new XMLAction("sentence",map.get("sentence"))); // Alias for /sentence
 		actions.put("settings", new SettingsAction());
 
 		actions.put("sound", new SoundAction());
 		actions.put("volume", new VolumeAction());
 		actions.put("vol", new VolumeAction());
 
-		actions.put("storemessage", new StoreMessageAction());
-		actions.put("postmessage", new StoreMessageAction());
+		actions.put("storemessage", new XMLAction("store message",map.get("store message")));
+		actions.put("postmessage", new XMLAction("store message",map.get("store message")));
 
 		actions.put("summonat", new SummonAtAction());
 		actions.put("summon", new SummonAction());
-		actions.put("supportanswer", supporta);
+		actions.put("supportanswer", new XMLAction("support answer",map.get("support answer")));
 		actions.put("supporta", supporta);
-		actions.put("support", new SupportAction());
+		actions.put("support", new XMLAction("support",map.get("support")));
 
 		actions.put("takescreenshot", new ScreenshotAction());
-		actions.put("teleport", new TeleportAction());
+		actions.put("teleport", new XMLAction("teleport",map.get("teleport")));
 		actions.put("teleportto", new TeleportToAction());
-		actions.put("tellall", new TellAllAction());
+		actions.put("tellall", new XMLAction("tell all",map.get("tell all")));
 		actions.put("tell", msg);
 
 		actions.put("where", new WhereAction());
 		actions.put("who", who);
 		actions.putAll(BareBonesBrowserLaunchCommandsFactory.createBrowserCommands());
-//		actions.put("wrap", new WrapAction());
 
 		/* Movement */
 		actions.put("walk", new AutoWalkAction());
@@ -136,7 +142,7 @@ public class SlashActionRepository {
 		actions.put(COMBAT_KARMA, new SetCombatKarmaAction());
 
 		// allows players to remove the detail layer manually
-		actions.put(REMOVEDETAIL, new RemoveDetailAction());
+		actions.put(REMOVEDETAIL, new XMLAction("remove detail",map.get("remove detail")));
 	}
 
 	/**

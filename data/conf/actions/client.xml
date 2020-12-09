@@ -2,28 +2,6 @@
 
 <actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="stendhal ../actions.xsd ">
-	<action name="create challenge">
-		<type value="challenge" />
-		<min_params value="1" ></min_params>
-		<max_params value="1" ></max_params>
-		<implementation />
-		<attributes>
-			<action>
-				<string value="open" ></string></action>
-			<target>
-				<param value="0" /></target></attributes>
-	</action>
-	<action name="accept challenge">
-		<type value="challenge" ></type>
-		<min_params value="1" />
-		<max_params value="1" />
-		<implementation />
-		<attributes>
-			<action>
-				<string value="accept" /></action>
-			<target>
-				<param value="0" /></target></attributes>
-	</action>
 	<action name="group message">
 		<type value="group_message" />
 		<min_params value="0" />
