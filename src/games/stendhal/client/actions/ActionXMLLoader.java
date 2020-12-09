@@ -23,6 +23,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * Returns a List of all actions loaded to ActionXMLGroupLoader using a load method.
  */
 public class ActionXMLLoader extends DefaultHandler{
+	private static final String VALUE = "value";
+
 	private static final Logger logger = Logger.getLogger(ActionXMLLoader.class);
 
 	private String type; //current action type.
@@ -91,16 +93,16 @@ public class ActionXMLLoader extends DefaultHandler{
 				name = attributes.getValue("name");
 				break;
 			case "type": //action type
-				type = attributes.getValue(qName);
+				type = attributes.getValue(VALUE);
 				break;
 			case "min_params": //action min params
-				minParams = attributes.getValue(qName);
+				minParams = attributes.getValue(VALUE);
 				break;
 			case "max_params": //action max params
-				maxParams = attributes.getValue(qName);
+				maxParams = attributes.getValue(VALUE);
 				break;
 			case "implementation": //action implementation
-				implementation = attributes.getValue(qName);
+				implementation = attributes.getValue(VALUE);
 				break;
 			case "attributes": //action attributes
 				attributeValues = new HashMap<String, HashMap<String, String>>();
@@ -112,7 +114,7 @@ public class ActionXMLLoader extends DefaultHandler{
 		if(attributeTagFound) { //create map of <"val", <"source" , "val">>
 			if ((qName.equals("param") || qName.equals("remainder") || qName.equals("string"))) {
 				HashMap<String, String> inputMap = new HashMap<String, String>();
-				inputMap.put(qName, attributes.getValue("value"));
+				inputMap.put(qName, attributes.getValue(VALUE));
 				attributeValues.put(prev, inputMap);
 			}
 		}
@@ -137,15 +139,15 @@ public class ActionXMLLoader extends DefaultHandler{
 				Map<String, String> source = new HashMap<String, String>(); //init map
 				if (attributeValues.get(key).containsKey("param")){
 					source.put("param", attributeValues.get(key).get("param"));
-					action.addAttribute(qName, source); 
+					action.addAttribute(key, source); 
 				}
 				else if (attributeValues.get(key).containsKey("string")) {
 					source.put("string", attributeValues.get(key).get("string"));
-					action.addAttribute(qName, source);
+					action.addAttribute(key, source);
 				}
 				else {
 					source.put("remainder", attributeValues.get(key).get("remainder"));
-					action.addAttribute(qName, source);
+					action.addAttribute(key, source);
 				}
 			}
 			loadedActions.add(action); //add to loaded actions
